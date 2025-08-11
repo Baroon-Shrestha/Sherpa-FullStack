@@ -1,130 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
 
 const RoomsCard = () => {
+  const [rooms, setRooms] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const roomsPerPage = 9;
 
-  const rooms = [
-    {
-      id: 1,
-      name: "Standard Single Room",
-      guests: 1,
-      size: "20 Feets Size",
-      beds: "1 Single Bed",
-      features: [],
-      description:
-        "A cozy room perfect for solo travelers. Equipped with essential amenities for a comfortable stay.",
-      amenities: ["Free WiFi", "Work Desk", "Cable TV", "Shower", "Safebox"],
-      price: 70,
-      image:
-        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    },
-    {
-      id: 2,
-      name: "Deluxe Double Room",
-      guests: 2,
-      size: "35 Feets Size",
-      beds: "1 King Bed",
-      features: ["Connecting Rooms"],
-      description:
-        "Spacious and elegant room with a king-size bed and modern decor. Ideal for couples or business stays.",
-      amenities: [
-        "Free WiFi",
-        "Cable TV",
-        "Work Desk",
-        "Refrigerator",
-        "Shower",
-        "Bathtub",
-        "City View",
-      ],
-      price: 200,
-      image:
-        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    },
-    {
-      id: 3,
-      name: "Twin Room",
-      guests: 2,
-      size: "30 Feets Size",
-      beds: "2 Single Beds",
-      features: [],
-      description:
-        "Perfect for friends or colleagues, this room features twin beds and all essential amenities.",
-      amenities: ["Free WiFi", "Work Desk", "Shower", "Cable TV", "Balcony"],
-      price: 120,
-      image:
-        "https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80",
-    },
-    {
-      id: 4,
-      name: "Family Room",
-      guests: 4,
-      size: "45 Feets Size",
-      beds: "1 Double Bed, 2 Single Beds",
-      features: ["Connecting Rooms"],
-      description:
-        "Ideal for families with a combination of beds and spacious interior for a comfortable stay.",
-      amenities: [
-        "Free WiFi",
-        "Cable TV",
-        "Refrigerator",
-        "Bathtub",
-        "Safebox",
-      ],
-      price: 250,
-      image:
-        "https://images.unsplash.com/photo-1578683010236-d716f9a3f461?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    },
-    {
-      id: 5,
-      name: "Superior Double Room",
-      guests: 2,
-      size: "40 Feets Size",
-      beds: "1 Queen Bed",
-      features: [],
-      description:
-        "Modern and well-appointed room with elegant design, perfect for leisure or business travelers.",
-      amenities: [
-        "Free WiFi",
-        "Work Desk",
-        "Refrigerator",
-        "Shower",
-        "Cable TV",
-      ],
-      price: 180,
-      image:
-        "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
-    },
-    {
-      id: 6,
-      name: "Economy Room",
-      guests: 2,
-      size: "22 Feets Size",
-      beds: "1 Double Bed",
-      features: [],
-      description:
-        "Budget-friendly option with all the basics. Great for short stays or solo travelers looking for value.",
-      amenities: ["Free WiFi", "Shower", "Cable TV"],
-      price: 60,
-      image:
-        "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2058&q=80",
-    },
-  ];
+  useEffect(() => {
+    const fetchRooms = async () => {
+      try {
+        const { data } = await axios.get("http://localhost:3000/api/get-rooms");
+        if (data.success && Array.isArray(data.room)) {
+          // Map API data to match our card format
+          const formattedRooms = data.room.map((r) => ({
+            id: r._id,
+            name: r.name,
+            guests: r.guests,
+            size: r.size,
+            beds: r.beds,
+            features: r.features || [],
+            description: r.description,
+            amenities: r.amenities || [],
+            price: r.price,
+            image: r.image?.[0]?.url || "",
+          }));
+          setRooms(formattedRooms);
+        }
+      } catch (err) {
+        console.error("Error fetching rooms:", err);
+      }
+    };
+
+    fetchRooms();
+  }, []);
 
   // Pagination logic
   const indexOfLastRoom = currentPage * roomsPerPage;
   const indexOfFirstRoom = indexOfLastRoom - roomsPerPage;
   const currentRooms = rooms.slice(indexOfFirstRoom, indexOfLastRoom);
   const totalPages = Math.ceil(rooms.length / roomsPerPage);
-
-  // const handleBookNow = (roomId, roomName) => {
-  //   alert(`Booking ${roomName} (Room ID: ${roomId})`);
-  // };
-
-  // const handleViewDetails = (roomId, roomName) => {
-  //   alert(`Viewing details for ${roomName} (Room ID: ${roomId})`);
-  // };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 md:py-16">
@@ -135,9 +50,11 @@ const RoomsCard = () => {
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-4">
           Our Rooms
         </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">
-          Discover comfort and elegance in our thoughtfully designed
-          accommodations
+        <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base mb-2">
+          Discover comfort and elegance in our thoughtfully designed accommodations
+        </p>
+        <p className="text-gray-500 text-sm">
+          {rooms.length} Room{rooms.length !== 1 ? "s" : ""} Available
         </p>
       </div>
 
@@ -256,14 +173,12 @@ const RoomsCard = () => {
               <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
                 <Link to={`/room/${room.id}`}>
                   <button
-                    // onClick={() => handleViewDetails(room.id, room.name)}
                     className="flex-1 px-4 py-2.5 border border-amber-600 text-amber-700 rounded-lg font-medium text-sm hover:bg-amber-50 transition-all duration-300 hover:shadow-md"
                   >
                     View Details
                   </button>
                 </Link>
                 <button
-                  // onClick={() => handleBookNow(room.id, room.name)}
                   className="flex-1 px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-lg font-medium text-sm hover:from-amber-700 hover:to-amber-800 transition-all duration-300 hover:shadow-lg transform hover:scale-105"
                 >
                   Book Now
@@ -288,12 +203,7 @@ const RoomsCard = () => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M15 19l-7-7 7-7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
             </svg>
           </button>
 
@@ -312,9 +222,7 @@ const RoomsCard = () => {
           ))}
 
           <button
-            onClick={() =>
-              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
-            }
+            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
             disabled={currentPage === totalPages}
             className="p-2 rounded-full border border-gray-300 text-gray-600 hover:bg-amber-50 hover:border-amber-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
           >
@@ -324,18 +232,13 @@ const RoomsCard = () => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
           </button>
         </div>
       )}
 
-      <style jsx>{`
+      <style >{`
         @keyframes fadeInUp {
           from {
             opacity: 0;

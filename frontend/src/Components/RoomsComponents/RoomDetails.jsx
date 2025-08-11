@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { rooms } from "../HelperComponents/RoomsData";
 import {
@@ -13,15 +13,43 @@ import {
   Coffee,
   Utensils,
 } from "lucide-react";
+import axios from "axios";
+
 
 export default function RoomDetail() {
   const { id } = useParams();
-  const roomId = Number(id);
-  const room = rooms.find((r) => r.id === roomId);
+  // const roomId = Number(id);
+  // const room = rooms.find((r) => r.id === roomId);
+  const [room, setRoom] = useState()
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [activeTab, setActiveTab] = useState("overview");
   const [selectedServices, setSelectedServices] = useState([]);
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useState(false)
+
+useEffect(() => {
+  const fetchRoom = async () => {
+    try {
+      const response = await axios.get(`http://localhost:3000/api/get-room/${id}`);
+      const data = response.data.oneRoom;
+
+      // Check if data.success exists? 
+      // Usually, `oneRoom` is the room object, so check response.data.success instead.
+      if (response.data.success) {
+        setRoom(data);
+      }
+    } catch (error) {
+      console.error("Error fetching room details:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchRoom();
+}, [id]);
+
 
   if (!room)
     return (
@@ -37,8 +65,12 @@ export default function RoomDetail() {
       </div>
     );
 
+    console.log(room)
+
+    if (!room) return <p>Loading...</p>;
+
   // Handle both single image and array of images
-  const images = Array.isArray(room.image) ? room.image : [room.image];
+  const images = Array.isArray(room?.image[0]?.url) ? room.image : [room.image];
 
   const nextImage = () => {
     setCurrentImageIndex((prev) => (prev + 1) % images.length);

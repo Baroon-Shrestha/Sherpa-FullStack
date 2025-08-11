@@ -72,7 +72,7 @@ export default function HomeServices() {
             className="bg-red-100 rounded-2xl md:rounded-r-full h-[75vh] overflow-hidden flex items-center justify-center"
           >
             <img
-              src="/services.jpg"
+              src="/sitter2.jpg"
               alt="Services"
               className="h-full w-full object-cover"
             />

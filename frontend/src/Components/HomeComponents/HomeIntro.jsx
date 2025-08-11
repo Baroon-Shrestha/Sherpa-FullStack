@@ -10,19 +10,19 @@ export default function HomeIntro() {
   const heroSlides = [
     {
       image:
-        "https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&h=800&fit=crop",
+        "intro.jpeg",
       title: "Luxury Redefined",
       subtitle: "Premium Comfort",
     },
     {
       image:
-        "https://images.unsplash.com/photo-1571003123894-1f0594d2b5d9?w=1200&h=800&fit=crop",
+        "One.jpeg",
       title: "Nepalese Heritage",
       subtitle: "Modern Elegance",
     },
     {
       image:
-        "https://images.unsplash.com/photo-1578645510447-e20b4311e3ce?w=1200&h=800&fit=crop",
+        "Diamond Sea Hotel.jpeg",
       title: "Unforgettable Experience",
       subtitle: "Heart of Thamel",
     },

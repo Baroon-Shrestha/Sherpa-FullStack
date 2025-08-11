@@ -1,19 +1,29 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Globe } from "lucide-react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function Navbar() {
+  const { i18n } = useTranslation();
   const location = useLocation();
+  const navigate = useNavigate();
   const currentPath = location.pathname;
+
+  const { t } = useTranslation();
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
-  const [selectedLanguage, setSelectedLanguage] = useState("EN");
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    i18n.language.toUpperCase()
+  );
   const [isScrolled, setIsScrolled] = useState(false);
   const dropdownRef = useRef(null);
 
+  const home = t("nav.home");
+
   const navItems = [
-    { id: "home", label: "Home", href: "/" },
+    { id: "home", label: home, href: "/" },
     { id: "about", label: "About Us", href: "/about" },
     { id: "room", label: "Rooms", href: "/rooms" },
     { id: "gallery", label: "Gallery", href: "/gallery" },
@@ -21,40 +31,44 @@ export default function Navbar() {
   ];
 
   const languages = [
-    { code: "EN", label: "English" },
-    { code: "中文", label: "Chinese" },
-    { code: "عربي", label: "Arabic" },
+    { code: "EN", label: "English", prefix: "" },
+    { code: "ZH", label: "Chinese", prefix: "/zh" },
+    { code: "AR", label: "Arabic", prefix: "/ar" },
+    { code: "JP", label: "Japanese", prefix: "/ja" },
   ];
 
-  // Handle scroll effect for navbar transparency
+  // Sync selectedLanguage state when i18n language changes
+  useEffect(() => {
+    setSelectedLanguage(i18n.language.toUpperCase());
+  }, [i18n.language]);
+
+  // Sync i18next language on mount and on URL path change based on prefix
+  useEffect(() => {
+    const langFromPath = languages.find(
+      ({ prefix }) => prefix && currentPath.startsWith(prefix)
+    );
+    if (langFromPath && i18n.language !== langFromPath.code.toLowerCase()) {
+      i18n.changeLanguage(langFromPath.code.toLowerCase());
+    } else if (!langFromPath && i18n.language !== "en") {
+      i18n.changeLanguage("en");
+    }
+  }, [currentPath]);
+
+  // Scroll effect for navbar transparency
   useEffect(() => {
     const handleScroll = () => {
-      const scrollTop = window.scrollY;
-      setIsScrolled(scrollTop > 50);
+      setIsScrolled(window.scrollY > 50);
     };
-
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Disable/enable body scroll when mobile menu is open
+  // Disable body scroll on mobile menu open
   useEffect(() => {
-    if (isMobileMenuOpen) {
-      document.body.style.overflow = "hidden";
-      document.body.style.paddingRight = "0px"; // Prevent layout shift
-    } else {
-      document.body.style.overflow = "unset";
-      document.body.style.paddingRight = "0px";
-    }
-
-    // Cleanup function to reset scroll when component unmounts
-    return () => {
-      document.body.style.overflow = "unset";
-      document.body.style.paddingRight = "0px";
-    };
+    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
   }, [isMobileMenuOpen]);
 
-  // Close dropdown when clicking outside
+  // Close dropdown on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
@@ -62,25 +76,54 @@ export default function Navbar() {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
-  // Close mobile menu on window resize
+  // Close mobile menu on resize
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
-        setIsMobileMenuOpen(false);
-      }
+      if (window.innerWidth >= 1024) setIsMobileMenuOpen(false);
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
+  // Handle language change: update i18next language, selectedLanguage and navigate to new URL
+  const handleLanguageChange = (code) => {
+    if (code === selectedLanguage) {
+      setIsLanguageDropdownOpen(false);
+      return;
+    }
+
+    const lng = code.toLowerCase(); // 'en', 'zh', 'ar'
+    i18n.changeLanguage(lng);
+    setSelectedLanguage(code);
+    setIsLanguageDropdownOpen(false);
+
+    // Strip existing language prefix from currentPath
+    let pathWithoutPrefix = currentPath;
+    languages.forEach(({ prefix }) => {
+      if (prefix && pathWithoutPrefix.startsWith(prefix)) {
+        pathWithoutPrefix = pathWithoutPrefix.replace(prefix, "") || "/";
+      }
+    });
+
+    // Find prefix for new language
+    const langInfo = languages.find((l) => l.code === code);
+    // Compose new path with prefix + pathWithoutPrefix
+    const newPath =
+      langInfo.prefix + (pathWithoutPrefix === "" ? "/" : pathWithoutPrefix);
+
+    navigate(newPath);
+  };
+
   const NavLink = ({ item, mobile = false, onClick }) => {
-    const isActive = currentPath === item.href;
+    // Determine active based on currentPath considering language prefixes
+    const langPrefixes = languages.map((l) => l.prefix);
+    const isActive = langPrefixes.some(
+      (prefix) => currentPath === prefix + item.href
+    );
+
     return (
       <motion.div
         className="relative"
@@ -88,7 +131,13 @@ export default function Navbar() {
         whileTap={{ scale: 0.98 }}
       >
         <Link
-          to={item.href}
+          to={
+            (selectedLanguage === "EN"
+              ? ""
+              : selectedLanguage === "ZH"
+              ? "/zh"
+              : "/ar") + item.href
+          }
           onClick={onClick}
           className={`relative transition-colors duration-300 font-medium ${
             mobile ? "block text-xl py-4 px-6 rounded-lg" : "py-3 px-1"
@@ -138,7 +187,7 @@ export default function Navbar() {
                 }`}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
-                onClick={() => setSelectedLanguage(lang.code)}
+                onClick={() => handleLanguageChange(lang.code)}
               >
                 {lang.code}
               </motion.button>
@@ -188,10 +237,7 @@ export default function Navbar() {
                       : "text-gray-700 hover:bg-blue-50 hover:text-blue-500"
                   }`}
                   whileHover={{ x: 2 }}
-                  onClick={() => {
-                    setSelectedLanguage(lang.code);
-                    setIsLanguageDropdownOpen(false);
-                  }}
+                  onClick={() => handleLanguageChange(lang.code)}
                 >
                   <div className="flex items-center justify-between">
                     <span>{lang.label}</span>
@@ -207,7 +253,6 @@ export default function Navbar() {
   };
 
   const toggleMobileMenu = () => setIsMobileMenuOpen(!isMobileMenuOpen);
-
   const closeMobileMenu = () => setIsMobileMenuOpen(false);
 
   return (
@@ -230,7 +275,7 @@ export default function Navbar() {
             >
               <Link to="/" className="flex items-center justify-center" />
               <img
-                src="logo.png"
+                src="logocopy.png"
                 alt="Sherpa Hotel Logo"
                 className={`h-20 w-auto max-w-[180px] object-contain transition-all duration-300 ${
                   isScrolled ? "brightness-100" : ""
@@ -259,7 +304,13 @@ export default function Navbar() {
                 whileTap={{ scale: 0.95 }}
               >
                 <Link
-                  to="/book-now"
+                  to={
+                    selectedLanguage === "EN"
+                      ? "/book-now"
+                      : selectedLanguage === "ZH"
+                      ? "/zh/book-now"
+                      : "/ar/book-now"
+                  }
                   className="bg-orange-500 text-white px-4 lg:px-6 py-2 lg:py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 text-sm lg:text-base hover:bg-orange-600"
                 >
                   Book Now
@@ -325,76 +376,23 @@ export default function Navbar() {
 
             {/* Mobile Menu Panel */}
             <motion.div
-              className="fixed top-0 right-0 h-full w-80 max-w-[85vw] bg-white shadow-2xl z-40 lg:hidden overflow-y-auto"
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{
-                type: "spring",
-                stiffness: 300,
-                damping: 30,
-                duration: 0.4,
-              }}
+              className="fixed top-20 bottom-0 left-0 right-0 bg-white shadow-lg overflow-y-auto z-50 rounded-t-3xl"
+              initial={{ y: "100%" }}
+              animate={{ y: 0 }}
+              exit={{ y: "100%" }}
+              transition={{ type: "spring", stiffness: 300, damping: 30 }}
             >
-              {/* Mobile Menu Header */}
-              <div className="px-6 py-8 border-b border-blue-100">
-                <div className="flex items-center justify-center">
-                  <img
-                    src="logo.png"
-                    alt="Sherpa Hotel Logo"
-                    className="h-12 w-auto max-w-[120px] object-contain"
-                  />
-                </div>
-              </div>
-
-              {/* Mobile Navigation Links */}
-              <div className="py-6">
-                {navItems.map((item, index) => (
-                  <motion.div
+              <nav className="flex flex-col px-4 py-6">
+                {navItems.map((item) => (
+                  <NavLink
                     key={item.id}
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{
-                      delay: index * 0.1 + 0.2,
-                      duration: 0.4,
-                      ease: "easeOut",
-                    }}
-                  >
-                    <NavLink
-                      item={item}
-                      mobile={true}
-                      onClick={closeMobileMenu}
-                    />
-                  </motion.div>
+                    item={item}
+                    mobile
+                    onClick={closeMobileMenu}
+                  />
                 ))}
-              </div>
-
-              {/* Mobile Language Selection */}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.7, duration: 0.4 }}
-              >
-                <LanguageDropdown mobile={true} />
-              </motion.div>
-
-              {/* Mobile Book Now Button */}
-              <motion.div
-                className="px-6 py-6 border-t border-blue-100"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8, duration: 0.4 }}
-              >
-                <motion.a
-                  href="#"
-                  className="block w-full bg-orange-500 text-white text-center px-6 py-4 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 text-lg hover:bg-orange-600"
-                  whileHover={{ scale: 1.02 }}
-                  whileTap={{ scale: 0.98 }}
-                  onClick={closeMobileMenu}
-                >
-                  Book Now
-                </motion.a>
-              </motion.div>
+                <LanguageDropdown mobile />
+              </nav>
             </motion.div>
           </>
         )}
