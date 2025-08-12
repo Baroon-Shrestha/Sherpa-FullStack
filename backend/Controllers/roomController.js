@@ -127,6 +127,24 @@ const getOneRoom = async (req, res) => {
   }
 };
 
+const getRoomTypes = async (req, res) => {
+  try {
+    // Get unique room types based on 'name' field
+    const roomTypes = await Rooms.distinct("name");
+
+    res.status(200).json({
+      success: true,
+      data: roomTypes,
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      message: "Server error",
+      error: error.message,
+    });
+  }
+};
+
 const updateRoom = async (req, res) => {
   try {
     const { id } = req.params;
@@ -200,4 +218,4 @@ const updateRoom = async (req, res) => {
   }
 };
 
-module.exports = { addRoom, getRoom, getOneRoom, updateRoom };
+module.exports = { addRoom, getRoom, getOneRoom, updateRoom, getRoomTypes };

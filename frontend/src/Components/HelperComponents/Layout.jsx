@@ -4,13 +4,16 @@ import Footer from "../Footer";
 
 const Layout = ({ children }) => {
   const location = useLocation();
-  const isRoomDetailsPage = location.pathname.startsWith("/room/");
+  const path = location.pathname;
+
+  const isRoomOrBookPage =
+    path.startsWith("/room/") || path.startsWith("/book/");
 
   return (
     <>
-      {!isRoomDetailsPage && <Navbar />}
+      {!isRoomOrBookPage && <Navbar />}
       {children}
-      {!isRoomDetailsPage && <Footer />}
+      {!isRoomOrBookPage && <Footer />}
     </>
   );
 };

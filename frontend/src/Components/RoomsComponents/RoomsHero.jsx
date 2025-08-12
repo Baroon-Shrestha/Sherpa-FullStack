@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 
-const heroImage = "singlesitter.jpg";
+const heroImage = "/singlesitter.jpg";
 
 export default function RoomsHero() {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });

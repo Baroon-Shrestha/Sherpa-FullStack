@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Phone,
   Mail,
@@ -14,14 +14,10 @@ import {
   FileText,
   Sparkles,
 } from "lucide-react";
-
-const roomOptions = [
-  { label: "Single Bed", maxGuests: 1 },
-  { label: "Single Double Bed", maxGuests: 2 },
-  { label: "Double Bed", maxGuests: 3 },
-];
+import axios from "axios";
 
 export default function BookNowPage() {
+  const [roomTypes, setRoomTypes] = useState([]);
   const today = new Date();
   const tomorrow = new Date();
   tomorrow.setDate(today.getDate() + 1);
@@ -59,6 +55,19 @@ export default function BookNowPage() {
     }
   };
 
+  useEffect(() => {
+    const fetchRoomType = async () => {
+      try {
+        const response = await axios.get("http://localhost:3000/api/room-type");
+        setRoomTypes(response.data.data); // Assuming API returns { success, data: [...] }
+      } catch (error) {
+        console.error("Error fetching room types:", error);
+      }
+    };
+
+    fetchRoomType();
+  }, []); // Empty array means run only on mount
+
   const handleFileUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -73,7 +82,7 @@ export default function BookNowPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
       {/* Enhanced Hero Section */}
-      <div className="relative h-screen overflow-hidden">
+      <div className="relative h-[80vh] overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center transform scale-105 transition-transform duration-1000"
           style={{
@@ -95,12 +104,8 @@ export default function BookNowPage() {
           style={{ animationDelay: "0.5s" }}
         />
 
-        <div className="relative z-10 h-full flex items-center justify-center px-4">
+        <div className="relative z-10 h-[80vh] flex items-center justify-center px-4">
           <div className="text-center text-white max-w-4xl">
-            <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-2 mb-6 border border-white/20">
-              <Sparkles className="w-5 h-5 text-yellow-300" />
-              <span className="text-sm font-medium">Premium Experience</span>
-            </div>
             <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-100 bg-clip-text text-transparent leading-tight">
               Reserve Your Perfect Stay
             </h1>
@@ -286,7 +291,9 @@ export default function BookNowPage() {
                       <Hotel className="w-5 h-5 text-purple-600" />
                       Room Selection
                     </h3>
+
                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                      {/* Room Type Dropdown */}
                       <div className="relative">
                         <select
                           name="roomType"
@@ -296,15 +303,16 @@ export default function BookNowPage() {
                           className="w-full p-4 border-2 border-gray-200 rounded-xl focus:border-purple-500 focus:ring-4 focus:ring-purple-100 transition-all duration-300 bg-white/80 backdrop-blur-sm appearance-none cursor-pointer"
                         >
                           <option value="">Select Room Type</option>
-                          {roomOptions.map((room, idx) => (
-                            <option key={idx} value={room.label}>
-                              {room.label} (Max {room.maxGuests} guest
-                              {room.maxGuests > 1 ? "s" : ""})
+                          {roomTypes.map((room, index) => (
+                            <option key={index} value={room}>
+                              {room} (Max Guests {room.guests})
                             </option>
                           ))}
                         </select>
                         <Hotel className="absolute right-3 top-4 w-5 h-5 text-gray-400 pointer-events-none" />
                       </div>
+
+                      {/* Number of Rooms Input */}
                       <div className="relative">
                         <input
                           type="number"

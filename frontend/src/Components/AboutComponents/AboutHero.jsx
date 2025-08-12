@@ -8,7 +8,7 @@ export default function AboutHero() {
       <div
         className="relative min-h-[110vh] bg-cover bg-center flex items-center justify-center"
         style={{
-          backgroundImage: "url('sitter2.jpg')",
+          backgroundImage: "url('/sitter2.jpg')",
         }}
       >
         {/* Dark overlay */}

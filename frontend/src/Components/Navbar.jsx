@@ -1,19 +1,20 @@
 import React, { useState, useRef, useEffect } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { ChevronDown, Globe } from "lucide-react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import BookingModal from "./HelperComponents/BookingModal";
 
 export default function Navbar() {
   const { i18n } = useTranslation();
   const location = useLocation();
-  const navigate = useNavigate();
   const currentPath = location.pathname;
 
   const { t } = useTranslation();
 
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isLanguageDropdownOpen, setIsLanguageDropdownOpen] = useState(false);
+  const [isBookingModalOpen, setIsBookingModalOpen] = useState(false); // New state for booking modal
   const [selectedLanguage, setSelectedLanguage] = useState(
     i18n.language.toUpperCase()
   );
@@ -63,10 +64,11 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  // Disable body scroll on mobile menu open
+  // Disable body scroll on mobile menu open or booking modal open
   useEffect(() => {
-    document.body.style.overflow = isMobileMenuOpen ? "hidden" : "unset";
-  }, [isMobileMenuOpen]);
+    document.body.style.overflow =
+      isMobileMenuOpen || isBookingModalOpen ? "hidden" : "unset";
+  }, [isMobileMenuOpen, isBookingModalOpen]);
 
   // Close dropdown on outside click
   useEffect(() => {
@@ -115,6 +117,12 @@ export default function Navbar() {
       langInfo.prefix + (pathWithoutPrefix === "" ? "/" : pathWithoutPrefix);
 
     navigate(newPath);
+  };
+
+  // Handle booking button click
+  const handleBookingClick = () => {
+    setIsBookingModalOpen(true);
+    setIsMobileMenuOpen(false); // Close mobile menu if open
   };
 
   const NavLink = ({ item, mobile = false, onClick }) => {
@@ -273,14 +281,15 @@ export default function Navbar() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >
-              <Link to="/" className="flex items-center justify-center" />
-              <img
-                src="logocopy.png"
-                alt="Sherpa Hotel Logo"
-                className={`h-20 w-auto max-w-[180px] object-contain transition-all duration-300 ${
-                  isScrolled ? "brightness-100" : ""
-                }`}
-              />
+              <Link to="/" className="flex items-center justify-center">
+                <img
+                  src="/logo.png"
+                  alt="Sherpa Hotel Logo"
+                  className={`h-20 w-auto max-w-[180px] object-contain transition-all duration-300 ${
+                    isScrolled ? "brightness-100" : ""
+                  }`}
+                />
+              </Link>
             </motion.div>
 
             {/* Desktop Navigation Links */}
@@ -298,24 +307,24 @@ export default function Navbar() {
               </div>
 
               {/* Book Now Button */}
-              <motion.div
-                className="hidden sm:block"
+              <motion.button
+                onClick={handleBookingClick}
+                className="hidden sm:flex items-center justify-center bg-orange-500 text-white px-4 lg:px-6 py-2 lg:py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 text-sm lg:text-base hover:bg-orange-600"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >
-                <Link
-                  to={
-                    selectedLanguage === "EN"
-                      ? "/book-now"
-                      : selectedLanguage === "ZH"
-                      ? "/zh/book-now"
-                      : "/ar/book-now"
-                  }
-                  className="bg-orange-500 text-white px-4 lg:px-6 py-2 lg:py-3 rounded-full font-medium shadow-lg hover:shadow-xl transition-all duration-300 text-sm lg:text-base hover:bg-orange-600"
-                >
-                  Book Now
-                </Link>
-              </motion.div>
+                Quick Book
+              </motion.button>
+
+              {/* Mobile Book Now Button */}
+              <motion.button
+                onClick={handleBookingClick}
+                className="sm:hidden flex items-center justify-center bg-orange-500 text-white px-3 py-2 rounded-full font-medium shadow-lg text-sm hover:bg-orange-600 transition-colors duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Book
+              </motion.button>
 
               {/* Mobile Hamburger Menu */}
               <motion.button
@@ -392,11 +401,30 @@ export default function Navbar() {
                   />
                 ))}
                 <LanguageDropdown mobile />
+
+                {/* Mobile Book Now Button in Menu */}
+                <div className="px-6 py-4 border-t border-blue-100">
+                  <motion.button
+                    onClick={handleBookingClick}
+                    className="w-full bg-orange-500 text-white py-3 rounded-lg font-medium shadow-lg hover:shadow-xl transition-all duration-300 text-base hover:bg-orange-600"
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                  >
+                    Quick Book
+                  </motion.button>
+                </div>
               </nav>
             </motion.div>
           </>
         )}
       </AnimatePresence>
+
+      {/* Booking Modal */}
+      <BookingModal
+        isOpen={isBookingModalOpen}
+        onClose={() => setIsBookingModalOpen(false)}
+        selectedLanguage={selectedLanguage}
+      />
     </>
   );
 }

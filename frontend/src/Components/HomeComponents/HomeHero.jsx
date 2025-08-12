@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ArrowRight, Play, X } from "lucide-react";
 import { motion } from "framer-motion";
+import BookingModal from "../HelperComponents/BookingModal";
 
 const texts = {
   EN: {
@@ -20,8 +21,7 @@ const texts = {
     bookButton: "预订您的住宿",
     tourButton: "虚拟导览",
     modalTitle: "虚拟导览 - 夏尔巴灵魂酒店",
-    modalDesc:
-      "通过虚拟之旅体验我们的豪华住宿，发现传统与现代的完美融合。",
+    modalDesc: "通过虚拟之旅体验我们的豪华住宿，发现传统与现代的完美融合。",
   },
   ar: {
     title: "فندق شيربا سول",
@@ -80,7 +80,10 @@ export default function HomeIntro({ language = "EN" }) {
   const isArabic = language.toLowerCase() === "ar";
 
   return (
-    <div className={`relative ${isArabic ? "direction-rtl" : "direction-ltr"}`} dir={isArabic ? "rtl" : "ltr"}>
+    <div
+      className={`relative ${isArabic ? "direction-rtl" : "direction-ltr"}`}
+      dir={isArabic ? "rtl" : "ltr"}
+    >
       <section className="w-screen h-screen relative overflow-hidden flex">
         {/* Background Image Slideshow */}
         <div className="absolute inset-0">
@@ -88,7 +91,9 @@ export default function HomeIntro({ language = "EN" }) {
             <div
               key={index}
               className={`absolute inset-0 transition-all duration-[3000ms] ease-in-out ${
-                index === currentSlide ? "opacity-100 scale-100" : "opacity-0 scale-105"
+                index === currentSlide
+                  ? "opacity-100 scale-100"
+                  : "opacity-0 scale-105"
               }`}
             >
               <div
@@ -190,7 +195,9 @@ export default function HomeIntro({ language = "EN" }) {
             </div>
 
             <div className="p-6 bg-gradient-to-r from-amber-900/50 to-amber-800/50">
-              <h3 className="text-xl font-bold text-white mb-2">{texts[language].modalTitle}</h3>
+              <h3 className="text-xl font-bold text-white mb-2">
+                {texts[language].modalTitle}
+              </h3>
               <p className="text-white/80">{texts[language].modalDesc}</p>
             </div>
           </div>

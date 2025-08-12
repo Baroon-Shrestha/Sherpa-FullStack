@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { BedIcon } from "lucide-react";
 
 const RoomsCard = () => {
   const [rooms, setRooms] = useState([]);
@@ -19,12 +20,19 @@ const RoomsCard = () => {
             guests: r.guests,
             size: r.size,
             beds: r.beds,
+            Noroom: r.availableRooms,
             features: r.features || [],
             description: r.description,
             amenities: r.amenities || [],
             price: r.price,
             image: r.image?.[0]?.url || "",
           }));
+          formattedRooms.sort((a, b) => {
+            if (a.Noroom === 0 && b.Noroom !== 0) return 1; // a after b
+            if (a.Noroom !== 0 && b.Noroom === 0) return -1; // a before b
+            return 0; // keep original order for others
+          });
+
           setRooms(formattedRooms);
         }
       } catch (err) {
@@ -51,7 +59,8 @@ const RoomsCard = () => {
           Our Rooms
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base mb-2">
-          Discover comfort and elegance in our thoughtfully designed accommodations
+          Discover comfort and elegance in our thoughtfully designed
+          accommodations
         </p>
         <p className="text-gray-500 text-sm">
           {rooms.length} Room{rooms.length !== 1 ? "s" : ""} Available
@@ -59,134 +68,168 @@ const RoomsCard = () => {
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl mx-auto px-4">
-        {currentRooms.map((room, index) => (
-          <div
-            key={room.id}
-            className="group relative bg-white rounded-2xl shadow-md hover:shadow-lg transition duration-200 ease-out overflow-hidden transform hover:-translate-y-1"
-            style={{
-              animationDelay: `${index * 100}ms`,
-              animation: "fadeInUp 0.8s ease-out forwards",
-              willChange: "transform, box-shadow",
-            }}
-          >
-            {/* Background Image */}
+        {currentRooms.map((room, index) => {
+          const isSoldOut = room.Noroom === 0;
+
+          return (
             <div
-              className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-200 pointer-events-none"
+              key={room.id}
+              className={`group relative bg-white rounded-2xl shadow-md transition duration-200 ease-out overflow-hidden transform ${
+                isSoldOut
+                  ? "opacity-50 cursor-not-allowed"
+                  : "hover:shadow-lg hover:-translate-y-1"
+              }`}
               style={{
-                backgroundImage: `url(${room.image})`,
-                backgroundSize: "cover",
-                backgroundPosition: "center",
-                backgroundRepeat: "no-repeat",
+                animationDelay: `${index * 100}ms`,
+                animation: "fadeInUp 0.8s ease-out forwards",
+                willChange: "transform, box-shadow",
+                pointerEvents: isSoldOut ? "none" : "auto",
               }}
-            />
-
-            {/* Main Image */}
-            <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
-              <img
-                src={room.image}
-                alt={room.name}
-                className="w-full h-full object-cover transform transition duration-300 ease-out group-hover:scale-105"
-              />
-
-              {/* Price Badge */}
-              <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
-                from ${room.price}
-              </div>
-
-              {/* Features Badge */}
-              {room.features.length > 0 && (
-                <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs">
-                  {room.features[0]}
+            >
+              {/* Overlay when sold out */}
+              {isSoldOut && (
+                <div className="absolute inset-0 bg-black/80 bg-opacity-60 flex items-center justify-center text-white text-lg font-semibold rounded-2xl z-10">
+                  Rooms are completely packed
                 </div>
               )}
 
-              {/* Gradient Overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
-            </div>
+              {/* Background Image */}
+              <div
+                className="absolute inset-0 opacity-10 group-hover:opacity-20 transition-opacity duration-200 pointer-events-none"
+                style={{
+                  backgroundImage: `url(${room.image})`,
+                  backgroundSize: "cover",
+                  backgroundPosition: "center",
+                  backgroundRepeat: "no-repeat",
+                }}
+              />
 
-            {/* Content */}
-            <div className="relative p-5 sm:p-6 space-y-4">
-              <div>
-                <h3 className="text-xl sm:text-2xl font-light text-gray-900 mb-2 group-hover:text-amber-700 transition-colors duration-300">
-                  {room.name}
-                </h3>
+              {/* Main Image */}
+              <div className="relative h-48 sm:h-56 lg:h-64 overflow-hidden">
+                <img
+                  src={room.image}
+                  alt={room.name}
+                  className="w-full h-full object-cover transform transition duration-300 ease-out group-hover:scale-105"
+                />
 
-                <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600 mb-3">
-                  <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {room.guests} Guest{room.guests > 1 ? "s" : ""}
-                  </span>
-                  <span className="text-gray-400">•</span>
-                  <span className="flex items-center gap-1">
-                    <svg
-                      className="w-4 h-4"
-                      fill="currentColor"
-                      viewBox="0 0 20 20"
-                    >
-                      <path
-                        fillRule="evenodd"
-                        d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2v8h12V6H4z"
-                        clipRule="evenodd"
-                      />
-                    </svg>
-                    {room.size}
-                  </span>
+                {/* Price Badge */}
+                <div className="absolute top-4 right-4 bg-gradient-to-r from-amber-600 to-amber-700 text-white px-4 py-2 rounded-full text-sm font-medium shadow-lg">
+                  from Rs. {room.price}
                 </div>
 
-                <p className="text-sm text-gray-700 mb-3 leading-relaxed">
-                  {room.beds}
-                </p>
-
-                <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
-                  {room.description}
-                </p>
-              </div>
-
-              {/* Amenities */}
-              <div className="flex flex-wrap gap-1">
-                {room.amenities.slice(0, 3).map((amenity, idx) => (
-                  <span
-                    key={idx}
-                    className="px-2 py-1 bg-amber-50 text-amber-700 text-xs rounded-full border border-amber-200"
-                  >
-                    {amenity}
-                  </span>
-                ))}
-                {room.amenities.length > 3 && (
-                  <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
-                    +{room.amenities.length - 3} more
-                  </span>
+                {/* Features Badge */}
+                {room.features.length > 0 && (
+                  <div className="absolute top-4 left-4 bg-black/50 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs">
+                    {room.features[0]}
+                  </div>
                 )}
+
+                {/* Gradient Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-transparent" />
               </div>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
-                <Link to={`/room/${room.id}`}>
-                  <button
-                    className="flex-1 px-4 py-2.5 border border-amber-600 text-amber-700 rounded-lg font-medium text-sm hover:bg-amber-50 transition-all duration-300 hover:shadow-md"
-                  >
-                    View Details
-                  </button>
-                </Link>
-                <button
-                  className="flex-1 px-4 py-2.5 bg-gradient-to-r from-amber-600 to-amber-700 text-white rounded-lg font-medium text-sm hover:from-amber-700 hover:to-amber-800 transition-all duration-300 hover:shadow-lg transform hover:scale-105"
-                >
-                  Book Now
-                </button>
+              {/* Content */}
+              <div className="relative p-5 sm:p-6 space-y-4">
+                <div>
+                  <h3 className="text-xl sm:text-2xl font-light text-gray-900 mb-2 group-hover:text-amber-700 transition-colors duration-300">
+                    {room.name}
+                  </h3>
+
+                  <div className="flex flex-wrap items-center gap-2 text-sm text-gray-600 mb-3">
+                    <span className="flex items-center gap-1">
+                      <svg
+                        className="w-4 h-4"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {room.guests} Guest{room.guests > 1 ? "s" : ""}
+                    </span>
+                    <span className="text-gray-400">•</span>
+                    <span className="flex items-center gap-1">
+                      <svg
+                        className="w-4 h-4"
+                        fill="currentColor"
+                        viewBox="0 0 20 20"
+                      >
+                        <path
+                          fillRule="evenodd"
+                          d="M4 4a2 2 0 00-2 2v8a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2H4zm0 2v8h12V6H4z"
+                          clipRule="evenodd"
+                        />
+                      </svg>
+                      {room.size}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-4">
+                    <p className="text-sm text-gray-700 mb-3 leading-relaxed">
+                      {room.beds}
+                    </p>
+                    <p className="text-sm text-gray-700 mb-3 leading-relaxed flex items-center gap-3">
+                      <BedIcon />
+                      {room.Noroom}
+                    </p>
+                  </div>
+
+                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+                    {room.description}
+                  </p>
+                </div>
+
+                {/* Amenities */}
+                <div className="flex flex-wrap gap-1">
+                  {room.amenities.slice(0, 3).map((amenity, idx) => (
+                    <span
+                      key={idx}
+                      className="px-2 py-1 bg-amber-50 text-amber-700 text-xs rounded-full border border-amber-200"
+                    >
+                      {amenity}
+                    </span>
+                  ))}
+                  {room.amenities.length > 3 && (
+                    <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded-full">
+                      +{room.amenities.length - 3} more
+                    </span>
+                  )}
+                </div>
+
+                {/* Action Buttons */}
+                <div className="flex flex-col sm:flex-row gap-3 pt-4 border-t border-gray-100">
+                  <Link to={`/room/${room.id}`}>
+                    <button
+                      disabled={isSoldOut}
+                      className={`flex-1 px-4 py-2.5 border text-sm rounded-lg font-medium transition-all duration-300 ${
+                        isSoldOut
+                          ? "border-gray-300 text-gray-400 cursor-not-allowed"
+                          : "border-amber-600 text-amber-700 hover:bg-amber-50 hover:shadow-md"
+                      }`}
+                    >
+                      View Details
+                    </button>
+                  </Link>
+                  <Link to={`/book/${room.id}`}>
+                    <button
+                      disabled={isSoldOut}
+                      className={`flex-1 px-4 py-2.5 text-white rounded-lg font-medium text-sm transition-all duration-300 transform ${
+                        isSoldOut
+                          ? "bg-gray-400 cursor-not-allowed"
+                          : "bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 hover:shadow-lg hover:scale-105"
+                      }`}
+                    >
+                      Book Now
+                    </button>
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
-        ))}
+          );
+        })}
       </div>
 
       {/* Enhanced Pagination */}
@@ -203,7 +246,12 @@ const RoomsCard = () => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </button>
 
@@ -222,7 +270,9 @@ const RoomsCard = () => {
           ))}
 
           <button
-            onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+            onClick={() =>
+              setCurrentPage((prev) => Math.min(prev + 1, totalPages))
+            }
             disabled={currentPage === totalPages}
             className="p-2 rounded-full border border-gray-300 text-gray-600 hover:bg-amber-50 hover:border-amber-300 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
           >
@@ -232,13 +282,18 @@ const RoomsCard = () => {
               stroke="currentColor"
               viewBox="0 0 24 24"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </button>
         </div>
       )}
 
-      <style >{`
+      <style>{`
         @keyframes fadeInUp {
           from {
             opacity: 0;

@@ -26,6 +26,9 @@ const sendBookingConfirmationEmail = async (booking, room) => {
     (img) => img.url
   );
 
+  // Calculate number of nights for total price
+  const days = calculateDays(booking.checkIn, booking.checkOut);
+
   // Prepare attachments for admin email (ID verification images)
   const attachments = idVerificationImageUrls.map((imgUrl, index) => ({
     filename: `id-verification-${index + 1}.jpg`, // Adjust based on URL if needed
@@ -152,9 +155,12 @@ const sendBookingConfirmationEmail = async (booking, room) => {
                 <tr><td>Check-Out:</td><td>${new Date(
                   booking.checkOut
                 ).toLocaleDateString()}</td></tr>
-                <tr><td>Total Price:</td><td>$${(
-                  price * booking.numberOfRooms
-                ).toFixed(2)}</td></tr>
+         <tr><td>Total Price:</td><td>Rs. ${(
+           price *
+           booking.numberOfRooms *
+           days
+         ).toFixed(2)}</td></tr>
+
               </table>
               <p><strong>Guest Contact Information:</strong> ${
                 booking.email
@@ -295,8 +301,10 @@ const sendBookingConfirmationEmail = async (booking, room) => {
                 <tr><td>Check-Out:</td><td>${new Date(
                   booking.checkOut
                 ).toLocaleDateString()}</td></tr>
-                <tr><td>Total Price:</td><td>$${(
-                  price * booking.numberOfRooms
+                <tr><td>Total Price:</td><td>Rs. ${(
+                  price *
+                  booking.numberOfRooms *
+                  days
                 ).toFixed(2)}</td></tr>
               </table>
               ${
@@ -326,6 +334,14 @@ const sendBookingConfirmationEmail = async (booking, room) => {
       // Note: We won't throw an error here to avoid disrupting the booking process
     }
   });
+};
+
+const calculateDays = (start, end) => {
+  const startDate = new Date(start);
+  const endDate = new Date(end);
+  const diffTime = endDate - startDate;
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays > 0 ? diffDays : 1;
 };
 
 const createBooking = async (req, res) => {
@@ -376,6 +392,16 @@ const createBooking = async (req, res) => {
         .json({ message: `Only ${room.availableRooms} rooms are available` });
     }
 
+    // Validate guest capacity based on room capacity per room
+    const maxGuestsAllowed = (Number(room.guests) || 0) * Number(numberOfRooms);
+    if (Number(numberOfGuests) > maxGuestsAllowed) {
+      return res
+        .status(400)
+        .json({
+          message: `Maximum ${maxGuestsAllowed} guests allowed for ${numberOfRooms} room(s)`,
+        });
+    }
+
     // Validate ID verification images presence
     if (!req.files || !req.files.idVerificationImages) {
       return res
@@ -424,7 +450,7 @@ const createBooking = async (req, res) => {
     const savedBooking = await booking.save();
 
     // Decrement availableRooms in Rooms collection
-    room.availableRooms = room.availableRooms - numberOfRooms;
+    room.availableRooms = room.availableRooms - Number(numberOfRooms);
     await room.save();
 
     // Send booking confirmation email
