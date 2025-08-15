@@ -1,8 +1,9 @@
+// HomeServices.jsx
 import React from "react";
+import { useTranslation } from "react-i18next";
 import {
   Tv2,
   Wifi,
-  ShieldCheck,
   ShowerHead,
   Utensils,
   BedDouble,
@@ -11,37 +12,17 @@ import {
 import { motion } from "framer-motion";
 
 export default function HomeServices() {
-  const services = [
-    {
-      icon: <BedDouble className="w-8 h-8 text-[#8B4513]" />,
-      title: "Clean & Airy Rooms",
-      desc: "Spacious, well-ventilated rooms with daily cleaning service.",
-    },
-    {
-      icon: <Wifi className="w-8 h-8 text-[#8B4513]" />,
-      title: "Free Wi-Fi",
-      desc: "High-speed internet available throughout the property.",
-    },
-    {
-      icon: <Tv2 className="w-8 h-8 text-[#8B4513]" />,
-      title: "Cable TV",
-      desc: "Access to local and international channels.",
-    },
-    {
-      icon: <Utensils className="w-8 h-8 text-[#8B4513]" />,
-      title: "Room Service",
-      desc: "Delicious meals and drinks delivered to your room.",
-    },
-    {
-      icon: <Briefcase className="w-8 h-8 text-[#8B4513]" />,
-      title: "Secure Storage",
-      desc: "Safeboxes available for your valuables.",
-    },
-    {
-      icon: <ShowerHead className="w-8 h-8 text-[#8B4513]" />,
-      title: "Hot Shower",
-      desc: "24/7 hot water for your comfort.",
-    },
+  const { t } = useTranslation();
+
+  const services = t("homeServices.services", { returnObjects: true });
+
+  const icons = [
+    <BedDouble key="bed" className="w-8 h-8 text-[#8B4513]" />,
+    <Wifi key="wifi" className="w-8 h-8 text-[#8B4513]" />,
+    <Tv2 key="tv" className="w-8 h-8 text-[#8B4513]" />,
+    <Utensils key="utensils" className="w-8 h-8 text-[#8B4513]" />,
+    <Briefcase key="briefcase" className="w-8 h-8 text-[#8B4513]" />,
+    <ShowerHead key="shower" className="w-8 h-8 text-[#8B4513]" />,
   ];
 
   return (
@@ -55,10 +36,10 @@ export default function HomeServices() {
       <div className="container mx-auto px-4 md:px-8">
         <div className="text-center mb-16">
           <p className="text-sm tracking-[0.2em] text-amber-600 uppercase mb-4 font-light">
-            SERVICES
+            {t("homeServices.sectionTag")}
           </p>
           <h1 className="text-5xl font-light text-gray-900 tracking-wide">
-            Our SERVICES
+            {t("homeServices.sectionTitle")}
           </h1>
         </div>
 
@@ -73,7 +54,7 @@ export default function HomeServices() {
           >
             <img
               src="/sitter2.jpg"
-              alt="Services"
+              alt={t("homeServices.sectionTag")}
               className="h-full w-full object-cover"
             />
           </motion.div>
@@ -88,13 +69,9 @@ export default function HomeServices() {
           >
             <div className="flex items-start flex-col mb-6">
               <div className="text-2xl font-extrabold mb-2">
-                What We Provide
+                {t("homeServices.intro.title")}
               </div>
-              <div className="max-w-xl">
-                We offer a comfortable stay with all the basic amenities you’d
-                expect from a modern guest house. Enjoy a relaxing experience
-                with dependable service.
-              </div>
+              <div className="max-w-xl">{t("homeServices.intro.desc")}</div>
             </div>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-8">
               {services.map((service, index) => (
@@ -106,7 +83,7 @@ export default function HomeServices() {
                   transition={{ delay: 0.1 * index, duration: 0.4 }}
                   viewport={{ once: true }}
                 >
-                  <div>{service.icon}</div>
+                  <div>{icons[index]}</div>
                   <div>
                     <h4 className="text-lg font-semibold text-[#1a1a1a]">
                       {service.title}

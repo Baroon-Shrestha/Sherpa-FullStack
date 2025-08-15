@@ -2,11 +2,13 @@ import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { BedIcon } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 const RoomsCard = () => {
   const [rooms, setRooms] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const roomsPerPage = 9;
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchRooms = async () => {
@@ -53,14 +55,13 @@ const RoomsCard = () => {
     <div className="min-h-screen bg-gradient-to-br from-gray-50 to-gray-100 py-8 md:py-16">
       <div className="text-center mb-12 px-4">
         <p className="text-xs text-amber-600 uppercase tracking-[0.3em] mb-3 font-medium">
-          Rooms & Suites
+          {t("room.title1")}
         </p>
         <h2 className="text-3xl md:text-5xl lg:text-6xl font-light text-gray-900 mb-4">
-          Our Rooms
+          {t("room.title2")}
         </h2>
         <p className="text-gray-600 max-w-2xl mx-auto text-sm md:text-base mb-2">
-          Discover comfort and elegance in our thoughtfully designed
-          accommodations
+          {t("room.desc")}
         </p>
         <p className="text-gray-500 text-sm">
           {rooms.length} Room{rooms.length !== 1 ? "s" : ""} Available
@@ -89,7 +90,7 @@ const RoomsCard = () => {
               {/* Overlay when sold out */}
               {isSoldOut && (
                 <div className="absolute inset-0 bg-black/80 bg-opacity-60 flex items-center justify-center text-white text-lg font-semibold rounded-2xl z-10">
-                  Rooms are completely packed
+                  {t("room.pack")}
                 </div>
               )}
 
@@ -210,7 +211,7 @@ const RoomsCard = () => {
                           : "border-amber-600 text-amber-700 hover:bg-amber-50 hover:shadow-md"
                       }`}
                     >
-                      View Details
+                      {t("room.details")}
                     </button>
                   </Link>
                   <Link to={`/book/${room.id}`}>
@@ -222,7 +223,7 @@ const RoomsCard = () => {
                           : "bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 hover:shadow-lg hover:scale-105"
                       }`}
                     >
-                      Book Now
+                      {t("room.book")}
                     </button>
                   </Link>
                 </div>

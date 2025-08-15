@@ -1,5 +1,494 @@
 {
   "nav": {
-    "home": "家"
+    "home": "首页",
+    "about": "关于",
+    "room": "客房",
+    "gallery": "画廊",
+    "contact": "联系我们",
+    "quick": "快速预订"
+  },
+  "home": {
+    "hero": {
+      "title": "喜马拉雅雪巴灵酒店",
+      "subtitle": "尊贵舒适",
+      "paragraph": "在加德满都的心脏地带体验无与伦比的热情好客。我们的精品酒店完美融合传统尼泊尔魅力与现代奢华，创造终生难忘的回忆。",
+      "bookButton": "预订您的住宿",
+      "tourButton": "虚拟导览",
+      "modalTitle": "虚拟导览 - 喜马拉雅雪巴灵酒店",
+      "modalDesc": "通过虚拟之旅体验我们的豪华住宿，发现传统与现代的完美融合。"
+    }
+  },
+  "about": {
+    "hero": {
+      "title": "关于我们",
+      "subtitle": "以正宗的雪巴热情好客欢迎国内外宾客"
+    }
+  },
+  "roomsHero": {
+    "badgeTitle": "全天候客房服务",
+    "badgeSubtitle": "随时为您服务",
+    "headingLine1": "探索客房",
+    "headingLine2": "为您的生活方式量身定制",
+    "paragraph": "舒适、时尚与功能性——集于一身。"
+  },
+  "gallery": {
+    "title": "我们的画廊",
+    "subtitle": "精选系列，展示定义我们旅程和愿景的瞬间",
+    "featuredTitle": "精选系列",
+    "featuredDesc": "探索我们精心挑选的图像，捕捉品牌和故事的精髓",
+    "viewImage": "查看图片",
+    "image": "图片",
+    "of": "的",
+    "description": "描述",
+    "desc1": "我们的舒适陪护房为家庭和独自旅行者提供宁静的环境和一流设施。完美的放松住宿，方便使用酒店设施。",
+    "desc2": "单人陪护房设计舒适方便，适合寻求安静私密空间的客人，配备现代装饰和必要设施。",
+    "desc3": "宽敞的房间，配有优雅家具和特大床，适合情侣或商务旅行者，追求奢华和便利。",
+    "desc4": "豪华客房享有美景，配备高速Wi-Fi和量身定制的优质服务，确保卓越的住宿体验。",
+    "desc5": "我们的行政套房融合舒适与风格，专为挑剔的宾客设计。",
+    "desc6": "舒适的房间采用现代设计元素，营造轻松氛围，配备所有必要便利设施。",
+    "desc7": "标准客房配有舒适床上用品和所有酒店服务，适合预算有限的旅行者。",
+    "desc8": "装修精良的房间，非常适合家庭，提供充足空间和儿童友好设施。",
+    "desc9": "经典客房配备现代设施，方便使用酒店餐饮和娱乐选项。",
+    "desc10": "这些房间将舒适与优雅结合，适合短期和长期住宿，注重宾客满意度。"
+  },
+  "contactHero": {
+    "title": "联系我们",
+    "subtitle": "我们期待您的来信"
+  },
+  "contactForm": {
+    "en": {
+      "alertFillFields": "请填写所有必填字段。",
+      "whatsappGreeting": "您好，喜马拉雅雪巴灵酒店！",
+      "letsStart": "开始一场",
+      "conversation": "对话",
+      "contactDescription": "无论您是计划访问、需要帮助，还是想分享反馈，我们都在这里帮助您，让您在喜马拉雅雪巴灵酒店的体验难忘。",
+      "quickResponseTitle": "快速响应",
+      "quickResponseDesc": "24小时内回复",
+      "personalTouchTitle": "贴心服务",
+      "personalTouchDesc": "专属支持",
+      "sendMessage": "发送消息",
+      "fillFormMsg": "请填写下方表格，我们会尽快回复您！",
+      "fullName": "全名",
+      "fullNamePlaceholder": "请输入您的全名",
+      "emailAddress": "电子邮箱",
+      "emailPlaceholder": "您的邮箱地址",
+      "yourMessage": "您的留言",
+      "messagePlaceholder": "告诉我们您的咨询或请求...",
+      "sending": "发送中",
+      "sendViaWhatsApp": "通过WhatsApp发送",
+      "selectLanguage": "选择语言"
+    }
+  },
+  "getInTouch": {
+    "phoneCopied": "电话号码已复制到剪贴板！",
+    "callWhatsApp": "拨打或WhatsApp",
+    "whatsappDescription": "随时通过WhatsApp直接给我们留言",
+    "emailUs": "给我们发邮件",
+    "emailResponseTime": "我们通常24小时内回复",
+    "visitUs": "拜访我们",
+    "visitDescription": "加德满都旅游区的中心地带",
+    "getIn": "保持联系",
+    "touch": "联络",
+    "readyDescription": "准备体验正宗的雪巴热情好客吗？联系我们预订、咨询或提供建议。"
+  },
+  "contactMap": {
+    "en": {
+      "title": "喜马拉雅雪巴灵酒店 – 加德满都塔梅尔",
+      "description": "我们位于加德满都繁华的塔梅尔区，距离文化地标、餐馆、商店和当地体验仅几步之遥。",
+      "address": "加德满都塔梅尔，尼泊尔",
+      "phone": "+977-9852030175",
+      "email": "info@hotelsherpasoul.com",
+      "mapTitle": "喜马拉雅雪巴灵酒店位置"
+    }
+  },
+  "aboutStory": {
+    "ourStory": "我们的故事",
+    "welcomeTo": "欢迎来到",
+    "sherpaSoul": "喜马拉雅雪巴灵酒店",
+    "paragraph1": "喜马拉雅雪巴灵酒店坐落于加德满都塔梅尔的中心，融合文化魅力、舒适与便利，是国内外游客探索尼泊尔奇观的理想选择。",
+    "paragraph2": "无论您是本地宾客发掘自己国家的宝藏，还是国际游客探索尼泊尔壮丽的风景和历史遗迹，我们的酒店都以热情的服务和现代设施，为您提供完美的住宿基地。",
+    "paragraph3": "在喜马拉雅雪巴灵酒店，我们自豪地欢迎来自尼泊尔各地及世界各地的宾客，分享首都最充满活力社区中雪巴人的真实温情。",
+    "exploreLocation": "探索我们的地址",
+    "imageAlt": "喜马拉雅雪巴灵酒店景观"
+  },
+  "aboutWhy": {
+    "whyChoose": "为什么选择",
+    "sherpaSoul": "喜马拉雅雪巴灵酒店",
+    "subtitle": "是什么让我们的客栈成为加德满都一个宁静实用的落脚点",
+    "authenticSherpaCulture": {
+      "title": "正宗的雪巴文化",
+      "description": "体验雪巴的热情好客和传统，热情欢迎尼泊尔和国际宾客。"
+    },
+    "primeThamelLocation": {
+      "title": "塔梅尔黄金地段",
+      "description": "加德满都探索者的理想选择 — 靠近市场、餐馆和遗址。"
+    },
+    "inclusiveHospitality": {
+      "title": "包容的热情服务",
+      "description": "为独行旅客、家庭和团队量身定制的贴心服务和设施。"
+    },
+    "multilingualSupport": {
+      "title": "多语言支持",
+      "description": "无语言障碍 — 从入住到退房全程指导帮助。"
+    },
+    "complimentaryWifi": {
+      "title": "免费无线网络",
+      "description": "全程稳定高速的互联网连接。"
+    },
+    "cleanAndSecure": {
+      "title": "干净与安全",
+      "description": "每日清洁和安全门禁，让您安心入住。"
+    },
+    "showOtherLanguages": "显示其他语言",
+    "hideOtherLanguages": "隐藏其他语言"
+  },
+  "aboutVision": {
+    "buddhistAlt": "佛教符号",
+    "our": "我们的",
+    "vision": "愿景",
+    "description": {
+      "part1": "成为加德满都最受信赖和喜爱的酒店——无论宾客来自尼泊尔还是海外，都能体验到",
+      "highlight": "雪巴的热情好客",
+      "part2": "，文化的丰富多彩以及贴心的舒适，连接本地温暖与国际标准，坐落于喜马拉雅的心脏地带。"
+    },
+    "startJourney": "开启您的旅程"
+  },
+  "roomsCard": {
+    "roomsSuites": "客房与套房",
+    "ourRooms": "我们的客房",
+    "description": "探索我们精心设计的舒适典雅住宿",
+    "room": "间客房",
+    "roomsPluralSuffix": "间",
+    "available": "可用",
+    "from": "起价",
+    "guest": "位客人",
+    "guestsSuffix": "位"
+  },
+  "roomDetails": {
+    "title": "房间详情",
+    "subtitle": "发现您所选房间的舒适与设施",
+    "pricePerNight": "每晚价格",
+    "guests": "客人",
+    "size": "面积",
+    "beds": "床",
+    "description": "描述",
+    "amenities": "设施",
+    "bookNow": "立即预订",
+    "viewGallery": "查看图库",
+    "availability": "可用性",
+    "checkIn": "入住时间",
+    "checkOut": "退房时间",
+    "relatedRooms": "相关房型"
+  },
+  "homeStats": {
+    "title": "数千人信赖",
+    "description": "我们对卓越的承诺赢得了认可和无数满意的客人",
+    "statLabels": {
+      "happyGuests": "满意宾客",
+      "sinceYear": "自2018年",
+      "years": "年",
+      "ofExcellence": "卓越",
+      "reviewsSuffix": "条评价+"
+    }
+  },
+  "footer": {
+    "brand": {
+      "title": "喜马拉雅雪巴灵酒店",
+      "description": "位于塔梅尔中心的宁静之地，融合舒适、文化和雪巴式热情好客"
+    },
+    "quickLinks": {
+      "title": "快速链接",
+      "links": {
+        "home": "首页",
+        "aboutUs": "关于我们",
+        "rooms": "客房",
+        "gallery": "画廊",
+        "contact": "联系我们"
+      }
+    },
+    "contactUs": {
+      "title": "联系我们",
+      "phone": "+977 9851068219",
+      "email": "mingmasaino@gmail.com",
+      "address": "加德满都塔梅尔"
+    },
+    "followUs": {
+      "title": "关注我们",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "tripAdvisor": "猫途鹰"
+    },
+    "copyright": {
+      "prefix": "©",
+      "hotelName": "喜马拉雅雪巴灵酒店",
+      "suffix": "版权所有"
+    }
+  },
+  "homeServices": {
+    "sectionTag": "服务",
+    "sectionTitle": "我们的服务",
+    "intro": {
+      "title": "我们提供的服务",
+      "desc": "我们提供舒适的住宿和现代旅馆应有的所有基本设施。享受可靠服务带来的轻松体验。"
+    },
+    "services": [
+      {
+        "title": "干净通风的房间",
+        "desc": "宽敞通风的房间，提供每日清洁服务。"
+      },
+      {
+        "title": "免费无线网络",
+        "desc": "全楼覆盖高速互联网。"
+      },
+      {
+        "title": "有线电视",
+        "desc": "可收看本地及国际频道。"
+      },
+      {
+        "title": "客房送餐服务",
+        "desc": "美味餐食和饮品直接送到您的房间。"
+      },
+      {
+        "title": "安全存储",
+        "desc": "提供保险箱以存放您的贵重物品。"
+      },
+      {
+        "title": "热水淋浴",
+        "desc": "24小时提供热水，保障您的舒适体验。"
+      }
+    ]
+  },
+  "homeTestimonial": [
+    {
+      "text": "喜马拉雅雪巴灵酒店的热情好客让我们的旅程难以忘怀。从我们到达的那一刻起，就感觉像家人一样。带有khada围巾的传统欢迎仪式令人感动。",
+      "name": "艾米莉·道森",
+      "title": "旅游博主，英国"
+    },
+    {
+      "text": "宁静的度假胜地，坐落在群山中，能欣赏到喜马拉雅山的壮丽景色。非常适合放松和文化沉浸。日出时的冥想课程具有变革性。",
+      "name": "森武志",
+      "title": "摄影师，日本"
+    },
+    {
+      "text": "我喜欢舒适的房间，融合了传统尼泊尔装饰和现代设施。食物非常棒——正宗的达尔巴特和莫莫是亮点。工作人员非常细心和友好。",
+      "name": "莎拉·詹宁斯",
+      "title": "作家，澳大利亚"
+    },
+    {
+      "text": "喜马拉雅雪巴灵酒店就像远离家的第二个家。一段真正的心灵体验，古老传统与现代舒适的完美结合。晚间的文化表演令人陶醉。",
+      "name": "卡洛斯·里维拉",
+      "title": "背包客，秘鲁"
+    },
+    {
+      "text": "我迫不及待想下个季节再来。从阳台看山景令人叹为观止！看日出染红山峰，喝着传统酥油茶，简直如梦如幻。",
+      "name": "丽娜·梅塔",
+      "title": "旅行摄制人，印度"
+    },
+    {
+      "text": "从欢迎茶仪式到退房祝福，每一刻都经过精心安排。对细节的关注和对宾客福祉的真诚关怀超乎期待。",
+      "name": "李托马斯",
+      "title": "酒店评论家，韩国"
+    },
+    {
+      "text": "他们全力满足我的饮食需求和过敏问题。有机花园到餐桌的体验令人难以置信。雪巴式热情好客，五星服务！",
+      "name": "朱丽叶·莫兰",
+      "title": "厨师兼旅行者，法国"
+    },
+    {
+      "text": "旅店的每一个角落都讲述着雪巴传统的故事。采用可持续材料，服务真诚。建筑完美融合了传统与奢华。",
+      "name": "乔治·富兰克林",
+      "title": "建筑师，美国"
+    },
+    {
+      "text": "旅店团队提供的徒步指导和本地见解非常宝贵。他们帮助我们发现了许多典型游客无法看到的隐秘宝地和神圣遗址。",
+      "name": "安娜·施密特",
+      "title": "探险向导，德国"
+    },
+    {
+      "text": "使用喜马拉雅传统草药的水疗疗程让人焕然一新。长途徒步后热石按摩简直是天堂。强烈推荐他们的养生套餐！",
+      "name": "玛丽亚·冈萨雷斯",
+      "title": "健康教练，西班牙"
+    },
+    {
+      "text": "作为一名独自旅行的女性，我感到完全安全和受欢迎。宾客间的社区氛围以及工作人员的家庭式关怀让我难忘。",
+      "name": "普莉亚·夏尔马",
+      "title": "独行旅行者，加拿大"
+    },
+    {
+      "text": "可持续旅游实践和对当地社区的支持给我留下深刻印象。这个旅店真正体现了负责任的旅游，同时提供奢华舒适。",
+      "name": "大卫·陈",
+      "title": "环境科学家，新加坡"
+    }
+  ],
+
+  "hotelName": "雪巴灵魂酒店",
+  "introsub": "我们的精品度假酒店坐落在充满活力的加德满都市中心，完美融合了永恒的尼泊尔传统与现代优雅。每个细节都经过精心设计，旨在为每位宾客提供温馨、舒适和难忘的体验。",
+  "heroParagraph": "体验位于加德满都中心无与伦比的热情款待。我们的精品酒店无缝融合了传统尼泊尔魅力与现代奢华，创造永恒回忆。",
+  "bookButton": "预订您的住宿",
+  "virtualTourButton": "虚拟参观",
+  "videoUrl": "https://www.youtube.com/embed/8IoDrKmbeBs?si=fQZBO4KHYiGJvmt4",
+  "videoTitle": "雪巴灵魂酒店虚拟参观",
+  "modalTitle": "虚拟参观 - 雪巴灵魂酒店",
+  "modalDescription": "通过我们的豪华住宿体验虚拟之旅，发现传统与现代的完美结合。",
+  "heroSlides": [
+    {
+      "image": "/intro.jpeg",
+      "title": "奢华再定义",
+      "subtitle": "尊贵舒适"
+    },
+    {
+      "image": "/One.jpeg",
+      "title": "尼泊尔遗产",
+      "subtitle": "现代优雅"
+    },
+    {
+      "image": "/Diamond Sea Hotel.jpeg",
+      "title": "难忘体验",
+      "subtitle": "塔梅尔中心"
+    }
+  ],
+  "stats": {
+    "tripadvisor": "旅行顾问",
+    "google": "谷歌评论",
+    "guest": "快乐的客人",
+    "exp": "经验年数"
+  },
+  "homestats": {
+    "title": "数千人信赖",
+    "subtitle": "我们对卓越的承诺为我们赢得了认可，并赢得了无数满意的客人",
+    "review": "评论"
+  },
+  "facilities": {
+    "title1": "设施",
+    "title2": "我们的设施",
+    "room": {
+      "title": "房间种类",
+      "desc": "您可以选择豪华房、套房、家庭房、行政房和经济房——每间客房均可满足不同客人的需求。"
+    },
+    "food": {
+      "title": "食品和饮料",
+      "desc": "尽情享用丰富的欧陆式、尼泊尔式、亚洲式和融合式菜肴以及优质饮品。"
+    }
+  },
+  "testimonialIntro": "夏尔巴灵魂旅馆 (Sherpa Soul Stay Inn) 的旅行者们的真实体验，探索了他们的灵魂。每个故事都体现了我们对地道夏尔巴人热情好客和难忘山地探险的执着追求。",
+  "storiesFrom": "故事来自",
+  "clients": "客户",
+  "button": {
+    "title": "准备创造你自己的难忘故事",
+    "but": "预订住宿"
+  },
+  "room": {
+    "title1": "客房和套房",
+    "title2": "我们的房间",
+    "desc": "在我们精心设计的住宿中体验舒适和优雅",
+    "size": "脚尺寸",
+    "guest": "嘉宾",
+    "rooms": {
+      "1": {
+        "name": "单人床房"
+      },
+      "2": {
+        "name": "双床房"
+      },
+      "3": {
+        "name": "三人房（单人床+双人床）"
+      }
+    },
+    "details": "查看所有房间",
+    "roomdet": "查看详情",
+    "book": "立即预订",
+    "pack": "房间已经挤满了"
+  },
+  "contact": {
+    "title": "让我们开始对话",
+    "subtitle": "无论您是计划旅行、需要帮助还是想要分享反馈，我们都将竭诚为您服务，让您在 Hotel Sherpa Soul 拥有难忘的体验。",
+    "card": {
+      "res": {
+        "title": "快速反应",
+        "des": "24小时内"
+      },
+      "per": {
+        "title": "个人风格",
+        "des": "专门的支持"
+      }
+    },
+    "form": {
+      "title": "发送消息",
+      "desc": "填写下面的表格，我们会尽快回复您！",
+      "data": {
+        "name": "姓名",
+        "email": "电子邮件",
+        "msg": "您的留言",
+        "name2": "输入您的全名",
+        "email2": "your@gmail.com",
+        "msg2": "告诉我们您的要求或询问"
+      },
+      "send": "Send via WhatsApp",
+      "send2": "发送..."
+    }
+  },
+  "roomdetails": {
+    "back": "后退",
+    "buttons": {
+      "book": "立即预订此房间",
+      "check": "检查可用性"
+    },
+    "cta": {
+      "heading": "准备预订住宿吗？",
+      "sub": "千万别错过这间精彩的客房。立即预订，创造难忘回忆。"
+    },
+    "info": {
+      "heading": "重要信息",
+      "points": {
+        "1": "入住时需出示带照片的有效身份证件",
+        "2": "如需提前入住或延迟退房，请联系接待处",
+        "3": "入住前和退房后均可寄存行李"
+      }
+    },
+    "checkin": {
+      "heading": "入住和退房时间",
+      "checkin": "入住时间",
+      "checkindes": "欢迎您的入住",
+      "checkindes2": "可应要求并视供应情况提供提前入住服务。",
+      "checkout": "退房时间",
+      "checkoutdes": "前方安全出行",
+      "checkoutdes2": "可能需要支付额外费用才能延迟退房，但需视具体情况而定。"
+    }
+  },
+  "book": {
+    "guests": "嘉宾",
+    "room": "客房",
+    "rate": "每晚房费",
+    "back": "返回房间详情",
+    "title": "预订住宿",
+    "title2": "完成您的预订",
+    "subtitle": "填写您的详细信息以确保您的预订",
+    "form": {
+      "info": "个人信息",
+      "name": "姓名",
+      "email": "电子邮件",
+      "number": "电话号码",
+      "room": "客房及住宿详情",
+      "type": "房型",
+      "guestnote": "每间客房最多可容纳",
+      "guests": "宾客人数",
+      "checkin": "入住日期",
+      "checkout": "退房日期",
+      "noroom": "房间数量",
+      "id": "身份验证",
+      "idDet": "请上传清晰的政府签发身份证件照片（正反面）。可接受的格式：JPEG、PNG。每张图片最大文件大小：5MB。",
+      "button": "完成预订",
+      "drag": "将您的身份证照片拖放到此处",
+      "choose": "选择文件"
+    },
+    "summary": {
+      "title": "预订摘要",
+      "total": "总金额",
+      "policies": {
+        "booking": "预订政策",
+        "cancel": "入住前 24 小时内可免费取消",
+        "id": "办理入住时需出示有效身份证件"
+      }
+    }
   }
 }

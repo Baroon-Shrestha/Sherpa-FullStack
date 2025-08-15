@@ -18,8 +18,10 @@ import {
   Clock,
 } from "lucide-react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export default function BookingForm() {
+  const [t] = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -53,7 +55,7 @@ export default function BookingForm() {
     const fetchRoom = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/get-room/${id}`
+          `https://sherpa-backend-tlkd.onrender.com/api/get-room/${id}`
         );
         if (response.data.success) {
           setRoom(response.data.oneRoom);
@@ -252,7 +254,7 @@ export default function BookingForm() {
       }
 
       const response = await axios.post(
-        `http://localhost:3000/api/book/${id}`,
+        `https://sherpa-backend-tlkd.onrender.com/api/book/${id}`,
         submitData,
         {
           headers: {
@@ -316,10 +318,12 @@ export default function BookingForm() {
               className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
             >
               <ChevronLeft className="w-5 h-5" />
-              <span className="font-medium">Back to Room Details</span>
+              <span className="font-medium">{t("book.back")}</span>
             </button>
             <div className="h-6 w-px bg-gray-300"></div>
-            <h1 className="text-2xl font-bold text-gray-900">Book Your Stay</h1>
+            <h1 className="text-2xl font-bold text-gray-900">
+              {t("book.title")}
+            </h1>
           </div>
         </div>
       </div>
@@ -331,11 +335,9 @@ export default function BookingForm() {
             <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-8">
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-2">
-                  Complete Your Booking
+                  {t("book.title2")}
                 </h2>
-                <p className="text-gray-600">
-                  Fill in your details to secure your reservation
-                </p>
+                <p className="text-gray-600">{t("book.subtitle")}</p>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-8">
@@ -343,12 +345,12 @@ export default function BookingForm() {
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                     <Users className="w-5 h-5 text-amber-600" />
-                    Personal Information
+                    {t("book.form.info")}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name *
+                        {t("book.form.name")} *
                       </label>
                       <input
                         type="text"
@@ -370,7 +372,7 @@ export default function BookingForm() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
+                        {t("book.form.email")} *
                       </label>
                       <div className="relative">
                         <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -395,7 +397,7 @@ export default function BookingForm() {
 
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number *
+                        Phone {t("book.form.number")} *
                       </label>
                       <div className="relative">
                         <Phone className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -424,12 +426,12 @@ export default function BookingForm() {
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                     <Bed className="w-5 h-5 text-amber-600" />
-                    Room & Stay Details
+                    {t("book.form.room")}
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Room Type *
+                        {t("book.form.type")} *
                       </label>
                       <select
                         name="roomType"
@@ -456,7 +458,7 @@ export default function BookingForm() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Number of Guests * (Max:{" "}
+                        {t("book.form.guests")} * (Max:{" "}
                         {(room.guests || 0) * (formData.numberOfRooms || 1)} for{" "}
                         {formData.numberOfRooms} room
                         {formData.numberOfRooms > 1 ? "s" : ""})
@@ -475,8 +477,8 @@ export default function BookingForm() {
                         }`}
                       />
                       <p className="text-xs text-gray-500 mt-1">
-                        Each room can accommodate up to {room.guests || 0}{" "}
-                        guests
+                        {t("book.form.guestnote")} {room.guests || 0}{" "}
+                        {t("book.guests")}
                       </p>
                       {errors.numberOfGuests && (
                         <p className="text-red-500 text-sm mt-1 flex items-center gap-1">
@@ -488,7 +490,7 @@ export default function BookingForm() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Check-In Date *
+                        {t("book.form.checkin")} *
                       </label>
                       <div className="relative">
                         <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -515,7 +517,7 @@ export default function BookingForm() {
 
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Check-Out Date *
+                        {t("book.form.checkout")} *
                       </label>
                       <div className="relative">
                         <Calendar className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
@@ -545,7 +547,7 @@ export default function BookingForm() {
 
                     <div className="md:col-span-2">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Number of Rooms *
+                        {t("book.form.noroom")} *
                       </label>
                       <input
                         type="number"
@@ -574,13 +576,11 @@ export default function BookingForm() {
                 <div>
                   <h3 className="text-xl font-semibold text-gray-900 mb-4 flex items-center gap-2">
                     <Upload className="w-5 h-5 text-amber-600" />
-                    ID Verification *
+                    {t("book.form.id")} *
                   </h3>
                   <div className="space-y-4">
                     <p className="text-sm text-gray-600">
-                      Please upload clear images of your government-issued ID
-                      (front and back). Accepted formats: JPEG, PNG. Maximum
-                      file size: 5MB per image.
+                      {t("book.form.idDet")}
                     </p>
 
                     {/* File Upload Area */}
@@ -599,12 +599,12 @@ export default function BookingForm() {
                     >
                       <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                       <p className="text-lg font-medium text-gray-700 mb-2">
-                        Drag and drop your ID images here
+                        {t("book.form.drag")}
                       </p>
                       <p className="text-gray-500 mb-4">or</p>
                       <label className="bg-amber-500 text-white px-6 py-3 rounded-lg cursor-pointer hover:bg-amber-600 transition-colors inline-flex items-center gap-2">
                         <Upload className="w-4 h-4" />
-                        Choose Files
+                        {t("book.form.choose")}
                         <input
                           type="file"
                           multiple
@@ -669,7 +669,7 @@ export default function BookingForm() {
                     ) : (
                       <>
                         <CreditCard className="w-5 h-5" />
-                        Complete Booking
+                        {t("book.form.button")}
                       </>
                     )}
                   </button>
@@ -683,7 +683,7 @@ export default function BookingForm() {
             <div className="sticky top-8">
               <div className="bg-white rounded-2xl shadow-lg border border-gray-200 p-6">
                 <h3 className="text-xl font-bold text-gray-900 mb-6">
-                  Booking Summary
+                  {t("book.summary.title")}
                 </h3>
 
                 {/* Room Info */}
@@ -719,7 +719,9 @@ export default function BookingForm() {
                 {/* Booking Details */}
                 <div className="space-y-3 mb-6 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Check-in:</span>
+                    <span className="text-gray-600">
+                      {t("book.form.checkin")}:
+                    </span>
                     <span className="font-medium">
                       {formData.checkIn
                         ? new Date(formData.checkIn).toLocaleDateString()
@@ -727,7 +729,9 @@ export default function BookingForm() {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Check-out:</span>
+                    <span className="text-gray-600">
+                      {t("book.form.checkin")}:
+                    </span>
                     <span className="font-medium">
                       {formData.checkOut
                         ? new Date(formData.checkOut).toLocaleDateString()
@@ -735,13 +739,13 @@ export default function BookingForm() {
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Guests:</span>
+                    <span className="text-gray-600">{t("book.guests")}:</span>
                     <span className="font-medium">
                       {formData.numberOfGuests}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Rooms:</span>
+                    <span className="text-gray-600">{t("book.room")}:</span>
                     <span className="font-medium">
                       {formData.numberOfRooms}
                     </span>
@@ -763,7 +767,7 @@ export default function BookingForm() {
                 {/* Price Breakdown */}
                 <div className="border-t pt-4 space-y-2 text-sm">
                   <div className="flex justify-between">
-                    <span className="text-gray-600">Room rate per night:</span>
+                    <span className="text-gray-600">{t("book.rate")}:</span>
                     <span>Rs. {room.price}</span>
                   </div>
                   {formData.numberOfRooms > 1 && (
@@ -809,21 +813,19 @@ export default function BookingForm() {
                   <div className="space-y-2 text-xs text-gray-600">
                     <div className="flex items-start gap-2">
                       <Clock className="w-3 h-3 mt-0.5 text-amber-600 flex-shrink-0" />
-                      <span>Check-in: 2:00 PM - 11:00 PM</span>
+                      <span>{t("book.form.checkin")}: 2:00 PM - 11:00 PM</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <Clock className="w-3 h-3 mt-0.5 text-amber-600 flex-shrink-0" />
-                      <span>Check-out: 12:00 PM</span>
+                      <span>{t("book.form.checkout")}: 12:00 PM</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <X className="w-3 h-3 mt-0.5 text-red-500 flex-shrink-0" />
-                      <span>
-                        Free cancellation up to 24 hours before check-in
-                      </span>
+                      <span>{t("book.summary.policies.cancel")}</span>
                     </div>
                     <div className="flex items-start gap-2">
                       <Shield className="w-3 h-3 mt-0.5 text-green-500 flex-shrink-0" />
-                      <span>Valid ID required at check-in</span>
+                      <span>{t("book.summary.policies.id")}</span>
                     </div>
                   </div>
                 </div>

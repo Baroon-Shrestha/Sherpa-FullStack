@@ -10,8 +10,10 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import GetInTouch from "./GetInTouch";
+import { useTranslation } from "react-i18next";
 
 export default function ContactForm() {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -47,6 +49,10 @@ export default function ContactForm() {
     }, 2000);
   };
 
+  const name = t("contact.form.data.name2");
+  const mail = t("contact.form.data.email2");
+  const msg = t("contact.form.data.msg2");
+
   return (
     <div>
       {/* Contact Info Section */}
@@ -74,15 +80,10 @@ export default function ContactForm() {
             <div className="text-white">
               <div className="mb-10">
                 <h2 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
-                  Let's Start a{" "}
-                  <span className="bg-[#AB865] bg-clip-text tex-transparent">
-                    Conversation
-                  </span>
+                  {t("contact.title")}
                 </h2>
                 <p className="text-xl text-white leading-relaxed mb-10">
-                  Whether you're planning your visit, need assistance, or want
-                  to share feedback, we're here to help make your experience at
-                  Hotel Sherpa Soul unforgettable.
+                  {t("contact.subtitle")}
                 </p>
               </div>
 
@@ -94,9 +95,11 @@ export default function ContactForm() {
                     </div>
                     <div>
                       <h4 className="font-bold text-slate-800">
-                        Quick Response
+                        {t("contact.card.res.title")}
                       </h4>
-                      <p className="text-slate-600 text-sm">Within 24 hours</p>
+                      <p className="text-slate-600 text-sm">
+                        {t("contact.card.res.des")}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -108,10 +111,10 @@ export default function ContactForm() {
                     </div>
                     <div>
                       <h4 className="font-bold text-slate-800">
-                        Personal Touch
+                        {t("contact.card.per.title")}
                       </h4>
                       <p className="text-slate-600 text-sm">
-                        Dedicated support
+                        {t("contact.card.per.des")}
                       </p>
                     </div>
                   </div>
@@ -127,10 +130,10 @@ export default function ContactForm() {
                   <div className="relative z-10">
                     <h3 className="text-2xl font-bold text-white flex items-center">
                       <Send className="w-7 h-7 mr-3" />
-                      Send Message
+                      {t("contact.form.title")}
                     </h3>
                     <p className="text-white/90 mt-3 text-lg">
-                      Fill out the form below and we'll get back to you soon!
+                      {t("contact.form.desc")}
                     </p>
                   </div>
                 </div>
@@ -138,7 +141,7 @@ export default function ContactForm() {
                 <div className="p-8 space-y-6">
                   <div className="group">
                     <label className="block text-sm font-bold text-slate-700 mb-3 transition-colors group-focus-within:text-[#AB8865]">
-                      Full Name *
+                      {t("contact.form.data.name")} *
                     </label>
                     <input
                       type="text"
@@ -153,7 +156,7 @@ export default function ContactForm() {
 
                   <div className="group">
                     <label className="block text-sm font-bold text-slate-700 mb-3 transition-colors group-focus-within:text-[#AB8865]">
-                      Email Address *
+                      {t("contact.form.data.email")}s *
                     </label>
                     <input
                       type="email"
@@ -168,7 +171,7 @@ export default function ContactForm() {
 
                   <div className="group">
                     <label className="block text-sm font-bold text-slate-700 mb-3 transition-colors group-focus-within:text-[#AB8865]">
-                      Your Message *
+                      {t("contact.form.data.msg")} *
                     </label>
                     <textarea
                       name="message"
@@ -191,12 +194,12 @@ export default function ContactForm() {
                       {isSubmitting ? (
                         <>
                           <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></div>
-                          Sending...
+                          {t("contact.form.send2")}
                         </>
                       ) : (
                         <>
                           <Send className="w-5 h-5 group-hover:rotate-12 transition-transform duration-300" />
-                          Send via WhatsApp
+                          {t("contact.form.send")}
                         </>
                       )}
                     </span>

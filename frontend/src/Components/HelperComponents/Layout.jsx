@@ -6,8 +6,7 @@ const Layout = ({ children }) => {
   const location = useLocation();
   const path = location.pathname;
 
-  const isRoomOrBookPage =
-    path.startsWith("/room/") || path.startsWith("/book/");
+  const isRoomOrBookPage = path.startsWith("/om/");
 
   return (
     <>

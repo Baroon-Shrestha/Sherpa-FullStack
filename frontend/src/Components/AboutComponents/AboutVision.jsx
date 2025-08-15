@@ -1,7 +1,10 @@
 import { ChevronRight, Heart } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function AboutVision() {
+  const { t } = useTranslation();
+
   return (
     <div>
       <section className="relative py-12 px-4 md:px-10 bg-gradient-to-br from-red-100 via-orange-100 to-yellow-50 overflow-hidden">
@@ -9,7 +12,7 @@ export default function AboutVision() {
         <div className="absolute inset-0 z-0 flex items-center justify-center pointer-events-none">
           <img
             src="/buddhist-logo.png"
-            alt="Buddhist Symbol"
+            alt={t("aboutVision.buddhistAlt")}
             className="w-[200px] opacity-10 blur-sm"
           />
         </div>
@@ -27,29 +30,26 @@ export default function AboutVision() {
               <Heart className="w-10 h-10 text-white" />
             </div>
             <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6">
-              Our{" "}
+              {t("aboutVision.our")}{" "}
               <span className="bg-gradient-to-r from-orange-600 to-red-500 bg-clip-text text-transparent">
-                Vision
+                {t("aboutVision.vision")}
               </span>
             </h2>
           </div>
 
           <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 shadow-xl border border-white/20">
             <p className="text-base md:text-lg text-gray-700 leading-relaxed font-light">
-              To be the most trusted and beloved hotel in Kathmandu — where
-              every guest, whether from Nepal or abroad, experiences the harmony
-              of{" "}
+              {t("aboutVision.description.part1")}{" "}
               <span className="font-semibold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent">
-                Sherpa hospitality
+                {t("aboutVision.description.highlight")}
               </span>
-              , cultural richness, and thoughtful comfort that bridges local
-              warmth with international standards in the heart of the Himalayas.
+              {t("aboutVision.description.part2")}
             </p>
           </div>
 
           <div className="mt-8">
             <button className="group bg-gradient-to-r from-orange-600 to-red-500 text-white px-8 py-4 rounded-full font-bold text-base shadow-xl hover:shadow-red-500/25 transform hover:scale-105 transition-all duration-300">
-              Start Your Journey
+              {t("aboutVision.startJourney")}
               <ChevronRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </button>
           </div>

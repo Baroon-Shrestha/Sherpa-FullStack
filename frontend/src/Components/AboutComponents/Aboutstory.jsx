@@ -1,7 +1,10 @@
 import { ChevronRight, MapPin } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function Aboutstory() {
+  const { t } = useTranslation();
+
   // Multi-color gradient
   const MULTI_GRADIENT = `linear-gradient(to right, #F79724, #FF6B6B, #9B5DE5, #2CACE2)`;
 
@@ -13,38 +16,23 @@ export default function Aboutstory() {
             {/* Text Content */}
             <div className="space-y-8">
               <div>
-                <div className="inline-block  py-2 text-black text-md font-semibold mb-2">
-                  Our Story
+                <div className="inline-block py-2 text-black text-md font-semibold mb-2">
+                  {t("aboutStory.ourStory")}
                 </div>
                 <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6 leading-tight">
-                  Welcome to Hotel{" "}
+                  {t("aboutStory.welcomeTo")}{" "}
                   <span
                     className="bg-clip-text text-transparent bg-gradient-to-r from-[#F79724] to-[#2CACE2]"
-                    // style={{ background: "linear-gradient(to right, #, #FF6B6B, #9B5DE5, #2CACE2)" }}
                   >
-                    Sherpa Soul
+                    {t("aboutStory.sherpaSoul")}
                   </span>
                 </h2>
               </div>
 
               <div className="space-y-6 text-lg leading-relaxed text-gray-600">
-                <p>
-                  Nestled in the heart of Thamel, Kathmandu, Hotel Sherpa Soul
-                  offers a unique blend of cultural charm, comfort, and
-                  convenience for both national and international travelers
-                  exploring the wonders of Nepal.
-                </p>
-                <p>
-                  Whether you're a local guest discovering your own country's
-                  treasures or an international visitor exploring Nepal's
-                  majestic landscapes and historic sites, our hotel serves as
-                  the perfect base with warm hospitality and modern amenities.
-                </p>
-                <p>
-                  At Hotel Sherpa Soul, we proudly welcome guests from across
-                  Nepal and around the world, sharing the authentic essence of
-                  Sherpa warmth in the capital's most vibrant neighborhood.
-                </p>
+                <p>{t("aboutStory.paragraph1")}</p>
+                <p>{t("aboutStory.paragraph2")}</p>
+                <p>{t("aboutStory.paragraph3")}</p>
               </div>
 
               <div className="pt-4">
@@ -53,7 +41,7 @@ export default function Aboutstory() {
                   style={{ background: MULTI_GRADIENT }}
                 >
                   <MapPin className="inline-block mr-2 w-5 h-5" />
-                  Explore Our Location
+                  {t("aboutStory.exploreLocation")}
                   <ChevronRight className="inline-block ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
                 </button>
               </div>
@@ -63,8 +51,8 @@ export default function Aboutstory() {
             <div className="relative">
               <div className="relative w-full h-[500px] md:h-[600px] rounded-3xl overflow-hidden shadow-2xl transform hover:scale-105 transition-all duration-500">
                 <img
-                  src="intro.jpg"
-                  alt="Hotel Sherpa Soul View"
+                  src="/intro.jpg"
+                  alt={t("aboutStory.imageAlt")}
                   className="w-full h-full object-cover object-top"
                 />
                 {/* Subtle overlay */}

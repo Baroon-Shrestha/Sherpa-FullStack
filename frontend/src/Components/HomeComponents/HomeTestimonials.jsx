@@ -1,116 +1,7 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 
-const testimonials = [
-  {
-    id: 1,
-    text: "The warmth and hospitality at Sherpa Soul Stay Inn made our trip unforgettable. From the moment we arrived, we felt like family. The traditional welcome ceremony with khada scarves was deeply moving.",
-    name: "Emily Dawson",
-    title: "Travel Blogger, UK",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 2,
-    text: "A peaceful retreat nestled in the hills with breathtaking views of the Himalayas. Perfect for relaxation and cultural immersion. The meditation sessions at sunrise were transformative.",
-    name: "Takeshi Mori",
-    title: "Photographer, Japan",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1607746882042-944635dfe10e?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 3,
-    text: "I loved the cozy rooms with traditional Nepali decor and modern amenities. The food was phenomenal - authentic dal bhat and momos were the highlights. The staff were incredibly attentive and kind.",
-    name: "Sarah Jennings",
-    title: "Writer, Australia",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 4,
-    text: "Sherpa Soul Stay Inn felt like a home away from home. A truly soulful experience where ancient traditions meet modern comfort. The evening cultural performances were mesmerizing.",
-    name: "Carlos Rivera",
-    title: "Backpacker, Peru",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1531891437562-4301cf35b7e4?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 5,
-    text: "I can't wait to return next season. The mountain view from my balcony was breathtaking! Watching the sunrise paint the peaks golden while sipping traditional butter tea was magical.",
-    name: "Lina Mehta",
-    title: "Travel Filmmaker, India",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1552058544-f2b08422138a?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 6,
-    text: "From welcome tea ceremony to check-out blessing, every moment was thoughtfully curated. The attention to detail and genuine care for guests' well-being exceeded all expectations.",
-    name: "Thomas Lee",
-    title: "Hotel Critic, South Korea",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1588776814546-ec207d81b6f3?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 7,
-    text: "They went above and beyond to accommodate my dietary needs and allergies. The organic garden-to-table experience was incredible. A+ service with genuine Sherpa hospitality!",
-    name: "Juliette Morin",
-    title: "Chef & Traveler, France",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1557053910-d9eadeed1c58?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 8,
-    text: "Every corner of the inn tells a story of Sherpa heritage. Beautifully designed with sustainable materials and heartfelt service. The architecture perfectly blends tradition with luxury.",
-    name: "George Franklin",
-    title: "Architect, USA",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1573497491208-6b1acb260507?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 9,
-    text: "The trek guidance and local insights provided by the inn's team were invaluable. They helped us discover hidden gems and sacred sites that typical tourists never see.",
-    name: "Anna Schmidt",
-    title: "Adventure Guide, Germany",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 10,
-    text: "The spa treatments using traditional Himalayan herbs were rejuvenating. The hot stone massage after a long day of trekking was pure bliss. Highly recommend the wellness packages!",
-    name: "Maria Gonzalez",
-    title: "Wellness Coach, Spain",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1580489944761-15a19d654956?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 11,
-    text: "As a solo female traveler, I felt completely safe and welcomed. The community atmosphere among guests and the family-like treatment from staff made my stay extraordinary.",
-    name: "Priya Sharma",
-    title: "Solo Traveler, Canada",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-  {
-    id: 12,
-    text: "The sustainable tourism practices and support for local communities impressed me greatly. This inn truly embodies responsible travel while providing luxury comfort.",
-    name: "David Chen",
-    title: "Environmental Scientist, Singapore",
-    rating: 5,
-    avatar:
-      "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
-  },
-];
-
+// StarRating component renders 5 stars, filled based on rating prop
 const StarRating = ({ rating }) => {
   return (
     <div className="flex gap-1 mb-4">
@@ -130,11 +21,57 @@ const StarRating = ({ rating }) => {
   );
 };
 
+// Default testimonials data (fallback if translations fail to load)
+const defaultTestimonials = [
+  {
+    id: 1,
+    text: "The warmth and hospitality at Sherpa Soul Stay Inn made our trip unforgettable. From the moment we arrived, we felt like family. The traditional welcome ceremony with khada scarves was deeply moving.",
+    name: "Emily Dawson",
+    title: "Travel Blogger, UK",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  },
+  {
+    id: 2,
+    text: "Our stay at Sherpa Soul was a perfect mix of comfort and culture. The staff's genuine kindness made all the difference.",
+    name: "Rajiv Kumar",
+    title: "Photographer, India",
+    rating: 4,
+    avatar:
+      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  },
+  {
+    id: 3,
+    text: "Beautiful views, delicious food, and a cozy atmosphere — Sherpa Soul truly felt like a home away from home.",
+    name: "Sofia Martinez",
+    title: "Travel Enthusiast, Spain",
+    rating: 5,
+    avatar:
+      "https://images.unsplash.com/photo-1524504388940-b1c1722653e1?ixlib=rb-4.0.3&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80",
+  },
+  // Add more testimonials as needed
+];
+
 const InfiniteCarousel = () => {
+  const { t, i18n } = useTranslation();
+
+  // Load testimonials from i18next translation using the key "homeTestimonial"
+  // If not found, fallback to defaultTestimonials
+  const testimonials = t("homeTestimonial", {
+    returnObjects: true,
+    defaultValue: defaultTestimonials,
+  });
+
+  // Check if current language is right-to-left
+  const isRTL = i18n.language === "ar";
+
   return (
     <>
-      <section className="bg-gradient-to-br from-stone-50 to-amber-50/30 py-24 overflow-hidden relative">
-        {/* Background decoration */}
+      <section
+        className="bg-gradient-to-br from-stone-50 to-amber-50/30 py-24 overflow-hidden relative"
+        dir={isRTL ? "rtl" : "ltr"}
+      >
         <div
           className="absolute inset-0 opacity-40 pointer-events-none"
           style={{
@@ -144,67 +81,30 @@ const InfiniteCarousel = () => {
         ></div>
 
         <div className="relative">
-          {/* Header Section */}
           <div className="text-center mb-16 px-6 max-w-4xl mx-auto">
-            {/* <div className="inline-flex items-center gap-2 bg-amber-100 text-amber-800 px-4 py-2 rounded-full text-sm font-medium tracking-wide uppercase mb-6">
-              <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-              </svg>
-              Guest Experiences
-            </div> */}
-
             <h2 className="text-6xl md:text-7xl font-light text-gray-900 tracking-tight">
-              Stories from the
+              {t("storiesFrom", "Stories from the")}{" "}
               <span className="block bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent font-light">
-                Clients
+                {t("clients", "Clients")}
               </span>
             </h2>
 
             <p className="text-gray-600 text-xl leading-relaxed max-w-3xl mx-auto">
-              Real experiences from travelers who discovered their soul at
-              Sherpa Soul Stay Inn. Each story reflects our commitment to
-              authentic Sherpa hospitality and unforgettable mountain
-              adventures.
+              {t(
+                "testimonialIntro",
+                "Real experiences from travelers who discovered their soul at Sherpa Soul Stay Inn. Each story reflects our commitment to authentic Sherpa hospitality and unforgettable mountain adventures."
+              )}
             </p>
-
-            {/* Statistics */}
-            {/* <div className="flex justify-center gap-8 mt-12">
-              <div className="text-center">
-                <div className="text-3xl font-bold text-amber-600 mb-1">
-                  500+
-                </div>
-                <div className="text-sm text-gray-500 uppercase tracking-wide">
-                  Happy Guests
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-amber-600 mb-1">
-                  4.9
-                </div>
-                <div className="text-sm text-gray-500 uppercase tracking-wide">
-                  Average Rating
-                </div>
-              </div>
-              <div className="text-center">
-                <div className="text-3xl font-bold text-amber-600 mb-1">
-                  98%
-                </div>
-                <div className="text-sm text-gray-500 uppercase tracking-wide">
-                  Would Return
-                </div>
-              </div> */}
-            {/* </div> */}
           </div>
 
-          {/* Fixed Width Scrolling Container */}
           <div className="relative w-full overflow-hidden pb-6">
             <div className="animate-scroll flex w-max">
               {[...testimonials, ...testimonials].map((testimonial, i) => (
                 <div
-                  key={i}
+                  key={`${testimonial.id}-${i}`}
                   className="w-[420px] mx-4 bg-white/80 backdrop-blur-sm border border-white/50 rounded-3xl p-8 shadow-xl hover:shadow-2xl transition-all duration-300 flex-shrink-0 group hover:-translate-y-2"
                 >
-                  <StarRating rating={testimonial.rating} />
+                  <StarRating rating={testimonial.rating || 5} />
 
                   <blockquote className="text-gray-700 text-lg leading-relaxed mb-8 font-light">
                     "{testimonial.text}"
@@ -213,7 +113,9 @@ const InfiniteCarousel = () => {
                   <div className="flex items-center gap-4 pt-4 border-t border-gray-100">
                     <div className="relative">
                       <img
-                        src={testimonial.avatar}
+                        src={
+                          testimonial.avatar || "https://via.placeholder.com/56"
+                        }
                         alt={testimonial.name}
                         className="w-14 h-14 rounded-full object-cover ring-4 ring-amber-100 group-hover:ring-amber-200 transition-all duration-300"
                       />
@@ -240,29 +142,21 @@ const InfiniteCarousel = () => {
                         {testimonial.title}
                       </p>
                     </div>
-
-                    {/* <div className="text-amber-500 opacity-20 group-hover:opacity-40 transition-opacity duration-300">
-                      <svg
-                        className="w-8 h-8"
-                        fill="currentColor"
-                        viewBox="0 0 20 20"
-                      >
-                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                      </svg>
-                    </div> */}
                   </div>
                 </div>
               ))}
             </div>
           </div>
 
-          {/* Call to Action */}
           <div className="text-center mt-16 px-6">
             <p className="text-gray-600 text-lg mb-6">
-              Ready to create your own unforgettable story?
+              {t(
+                "button.title",
+                "Ready to create your own unforgettable story?"
+              )}
             </p>
             <button className="inline-flex items-center gap-2 bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-4 rounded-full font-semibold text-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:-translate-y-1">
-              Book Your Stay
+              {t("button.but", "Book Your Stay")}
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -280,26 +174,23 @@ const InfiniteCarousel = () => {
           </div>
         </div>
 
+        {/* Inline CSS for scroll animation */}
         <style>{`
-        @keyframes scroll {
-          0% {
-            transform: translateX(0);
+          @keyframes scroll {
+            0% {
+              transform: translateX(0);
+            }
+            100% {
+              transform: translateX(calc(-452px * ${testimonials.length}));
+            }
           }
-          100% {
-            transform: translateX(calc(-420px * ${testimonials.length} - ${
-          testimonials.length * 32
-        }px));
+          .animate-scroll {
+            animation: scroll 60s linear infinite;
           }
-        }
-        
-        .animate-scroll {
-          animation: scroll 60s linear infinite;
-        }
-        
-        .animate-scroll:hover {
-          animation-play-state: paused;
-        }
-      `}</style>
+          .animate-scroll:hover {
+            animation-play-state: paused;
+          }
+        `}</style>
       </section>
     </>
   );

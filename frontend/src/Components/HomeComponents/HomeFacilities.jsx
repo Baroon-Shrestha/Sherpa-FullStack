@@ -1,9 +1,11 @@
 import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const HomeFacilities = () => {
   const [isVisible, setIsVisible] = useState(false);
   const sectionRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -39,10 +41,10 @@ const HomeFacilities = () => {
           }`}
         >
           <p className="text-sm tracking-widest uppercase text-amber-600 mb-5 font-light">
-            FACILITIES
+            {t("facilities.title1")}
           </p>
           <h2 className="text-6xl md:text-7xl font-light text-gray-900 tracking-tight">
-            Our Facilities
+            {t("facilities.title2")}
           </h2>
         </div>
 
@@ -67,11 +69,12 @@ const HomeFacilities = () => {
             <div className="max-w-xl bg-[#AB8865] text-white flex items-start justify-center flex-col absolute -bottom-5 left-5 p-6 rounded-xl shadow-2xl backdrop-blur-sm border border-amber-600/20 hover:scale-105 transition-all duration-300 group-hover:shadow-amber-900/25">
               <div className="text-4xl font-light mb-3 tracking-wide">
                 <span className="mr-2">5+</span>
-                <span className="text-lg font-normal">Room Varieties</span>
+                <span className="text-lg font-normal">
+                  {t("facilities.room.title")}
+                </span>
               </div>
               <div className="text-amber-100 leading-relaxed text-sm">
-                Choose from deluxe, suite, family, executive, and budget
-                rooms—each tailored to meet diverse guest needs.
+                {t("facilities.room.desc")}
               </div>
             </div>
           </motion.div>
@@ -95,11 +98,12 @@ const HomeFacilities = () => {
             <div className="max-w-xl bg-[#AB8865] text-white flex items-start justify-center flex-col absolute -bottom-10 left-5 p-6 rounded-xl shadow-2xl backdrop-blur-sm border border-amber-600/20 hover:scale-105 transition-all duration-300 group-hover:shadow-amber-900/25">
               <div className="text-4xl font-light mb-3 tracking-wide">
                 <span className="mr-2">25+</span>
-                <span className="text-lg font-normal">Food & Beverages</span>
+                <span className="text-lg font-normal">
+                  {t("facilities.food.title")}
+                </span>
               </div>
               <div className="text-amber-100 leading-relaxed text-sm">
-                Indulge in a rich selection of continental, Nepali, Asian, and
-                fusion dishes, alongside premium drinks.
+                {t("facilities.food.desc")}
               </div>
             </div>
           </motion.div>

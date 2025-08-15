@@ -1,5 +1,6 @@
 import React from "react";
 import { Star, MapPin, Users, Award, Coffee } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // Mock CountUp component since it's not available in this environment
 const CountUp = ({ end, decimals = 0, duration = 2, suffix = "" }) => {
@@ -54,6 +55,7 @@ const useInView = ({ triggerOnce, threshold }) => {
 };
 
 export default function HomeStats() {
+  const { t } = useTranslation();
   const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
 
   return (
@@ -61,11 +63,10 @@ export default function HomeStats() {
       <div className="container mx-auto px-6 lg:px-12">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            Trusted by Thousands
+            {t("homestats.title")}
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            Our commitment to excellence has earned us recognition and countless
-            satisfied guests
+            {t("homestats.subtitle")}
           </p>
         </div>
 
@@ -138,6 +139,7 @@ function StatCard({
   subLabel,
   inView,
 }) {
+  const { t } = useTranslation();
   return (
     <div>
       <div
@@ -194,7 +196,7 @@ function StatCard({
 
               {/* Review Count */}
               <div className="text-sm text-gray-500">
-                {inView && <CountUp end={reviews} />}+ Reviews
+                {inView && <CountUp end={reviews} />}+ {t("homestats.review")}
               </div>
             </>
           ) : (

@@ -21,7 +21,9 @@ const BookingModal = ({ isOpen, onClose, selectedLanguage = "EN" }) => {
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get("http://localhost:3000/api/get-rooms");
+      const response = await axios.get(
+        "https://sherpa-backend-tlkd.onrender.com/api/get-rooms"
+      );
       const apiRooms = response?.data?.room || [];
 
       // Map API data to match RoomsCard format and UX

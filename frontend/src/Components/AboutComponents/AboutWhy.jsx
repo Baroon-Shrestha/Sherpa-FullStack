@@ -8,6 +8,7 @@ import {
   Globe,
   MessageCircle,
 } from "lucide-react";
+import { useTranslation } from "react-i18next";
 
 // Buddhist-inspired palette
 const SAFFRON = "#F6A823"; // marigold/saffron
@@ -30,35 +31,32 @@ function Badge({ children }) {
 }
 
 export default function AboutWhy() {
+  const { t } = useTranslation();
   const [showMoreLangs, setShowMoreLangs] = useState(false);
 
   const features = [
     {
-      title: "Authentic Sherpa Culture",
-      description:
-        "Experience the warmth and traditions of Sherpa hospitality, welcoming both Nepali and international guests with equal care.",
+      title: t("aboutWhy.authenticSherpaCulture.title"),
+      description: t("aboutWhy.authenticSherpaCulture.description"),
       icon: Mountain,
     },
     {
-      title: "Prime Thamel Location",
-      description:
-        "Ideal for Kathmandu explorers — close to markets, eateries, and heritage sites.",
+      title: t("aboutWhy.primeThamelLocation.title"),
+      description: t("aboutWhy.primeThamelLocation.description"),
       icon: MapPin,
     },
     {
-      title: "Inclusive Hospitality",
-      description:
-        "Thoughtful service and amenities tailored for solo travelers, families, and groups.",
+      title: t("aboutWhy.inclusiveHospitality.title"),
+      description: t("aboutWhy.inclusiveHospitality.description"),
       icon: Smile,
     },
     {
-      title: "Multilingual Support",
-      description:
-        "No language barrier — guided help from check‑in to check‑out.",
+      title: t("aboutWhy.multilingualSupport.title"),
+      description: t("aboutWhy.multilingualSupport.description"),
       icon: Globe,
       primaryLangs: [
-        { label: "العربية" }, // Arabic
-        { label: "中文" }, // Chinese
+        { label: "العربية" }, // Arabic (could translate or keep labels)
+        { label: "中文" },
         { label: "English" },
       ],
       otherLangs: [
@@ -72,14 +70,13 @@ export default function AboutWhy() {
       ],
     },
     {
-      title: "Complimentary Wi‑Fi",
-      description: "Reliable high‑speed internet throughout your stay.",
+      title: t("aboutWhy.complimentaryWifi.title"),
+      description: t("aboutWhy.complimentaryWifi.description"),
       icon: Wifi,
     },
     {
-      title: "Clean & Secure",
-      description:
-        "Daily housekeeping and secure access so you can feel at ease.",
+      title: t("aboutWhy.cleanAndSecure.title"),
+      description: t("aboutWhy.cleanAndSecure.description"),
       icon: ShieldCheck,
     },
   ];
@@ -87,24 +84,24 @@ export default function AboutWhy() {
   return (
     <section className="py-16" style={{ background: IVORY }}>
       <div className="max-w-7xl mx-auto px-6 md:px-20">
-        {/* Heading (smaller/compact) */}
+        {/* Heading */}
         <div className="text-center mb-10">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900">
-            Why Choose{" "}
+            {t("aboutWhy.whyChoose")}{" "}
             <span className="bg-clip-text text-transparent bg-gradient-to-r from-[#F79724] to-[#2CACE2]">
-              Sherpa Soul
+              {t("aboutWhy.sherpaSoul")}
             </span>
           </h2>
           <p className="mt-2 text-base md:text-lg text-gray-600">
-            What makes our guest house a peaceful, practical base in Kathmandu
+            {t("aboutWhy.subtitle")}
           </p>
         </div>
 
-        {/* Cards — tighter grid, smaller padding & icons */}
+        {/* Features Grid */}
         <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {features.map((feature, index) => {
             const Icon = feature.icon;
-            const isMultilingual = feature.title === "Multilingual Support";
+            const isMultilingual = feature.title === t("aboutWhy.multilingualSupport.title");
 
             return (
               <div
@@ -115,7 +112,6 @@ export default function AboutWhy() {
                   boxShadow: `0 6px 14px 0 ${MAROON}12`,
                 }}
               >
-                {/* subtle saffron→maroon hover wash */}
                 <div
                   className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-10 transition-opacity duration-300"
                   style={{
@@ -134,12 +130,8 @@ export default function AboutWhy() {
                     <Icon className="w-6 h-6 text-white" />
                   </div>
 
-                  <h3 className="text-lg font-semibold text-gray-900">
-                    {feature.title}
-                  </h3>
-                  <p className="mt-1.5 text-sm text-gray-600">
-                    {feature.description}
-                  </p>
+                  <h3 className="text-lg font-semibold text-gray-900">{feature.title}</h3>
+                  <p className="mt-1.5 text-sm text-gray-600">{feature.description}</p>
 
                   {isMultilingual && (
                     <div className="mt-3">
@@ -158,8 +150,8 @@ export default function AboutWhy() {
                       >
                         <MessageCircle className="w-4 h-4" />
                         {showMoreLangs
-                          ? "Hide other languages"
-                          : "Show other languages"}
+                          ? t("aboutWhy.hideOtherLanguages")
+                          : t("aboutWhy.showOtherLanguages")}
                       </button>
 
                       {showMoreLangs && (
@@ -173,7 +165,6 @@ export default function AboutWhy() {
                   )}
                 </div>
 
-                {/* thin saffron bar */}
                 <div
                   className="absolute bottom-0 left-0 right-0 h-[3px] rounded-b-2xl"
                   style={{ background: SAFFRON }}

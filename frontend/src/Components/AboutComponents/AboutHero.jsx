@@ -1,13 +1,17 @@
 import { Mountain } from "lucide-react";
 import React from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 export default function AboutHero() {
+  const { t } = useTranslation();
+
   return (
     <div>
       <div
         className="relative min-h-[110vh] bg-cover bg-center flex items-center justify-center"
         style={{
+          // ✅ Using public folder path so it works in all languages
           backgroundImage: "url('/sitter2.jpg')",
         }}
       >
@@ -17,25 +21,7 @@ export default function AboutHero() {
         {/* Gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-b from-transparent via-black/20 to-black/40"></div>
 
-        {/* Floating decorative icons */}
-        {/* <div className="absolute inset-0 overflow-hidden">
-          {[...Array(4)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute animate-float opacity-30"
-              style={{
-                left: `${20 + Math.random() * 60}%`,
-                top: `${20 + Math.random() * 60}%`,
-                animationDelay: `${i * 1}s`,
-                animationDuration: `${4 + Math.random() * 2}s`,
-              }}
-            >
-              <Mountain className="w-6 h-6 text-white/40" />
-            </div>
-          ))}
-        </div> */}
-
-        {/* Text content with animation */}
+        {/* Text content */}
         <div className="relative z-10 text-center text-white px-6">
           <motion.h1
             initial={{ opacity: 0, y: 40 }}
@@ -50,7 +36,7 @@ export default function AboutHero() {
                        bg-gradient-to-r from-white via-orange-200 to-orange-500 
                        bg-clip-text text-transparent bg-[length:200%_200%] bg-left"
           >
-            About Us
+            {t("about.hero.title")}
           </motion.h1>
 
           <motion.p
@@ -59,8 +45,7 @@ export default function AboutHero() {
             transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
             className="text-xl md:text-2xl text-gray-200 max-w-3xl mx-auto leading-relaxed drop-shadow-lg"
           >
-            Welcoming National & International Guests with Authentic Sherpa
-            Hospitality
+            {t("about.hero.subtitle")}
           </motion.p>
         </div>
       </div>

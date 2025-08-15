@@ -17,6 +17,7 @@ import {
   CreditCard,
 } from "lucide-react";
 import axios from "axios";
+import { useTranslation } from "react-i18next";
 
 export default function RoomDetail() {
   const { id } = useParams();
@@ -25,12 +26,13 @@ export default function RoomDetail() {
   const [activeTab, setActiveTab] = useState("overview");
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchRoom = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:3000/api/get-room/${id}`
+          `https://sherpa-backend-tlkd.onrender.com/api/get-room/${id}`
         );
         const data = response.data.oneRoom;
 
@@ -116,7 +118,7 @@ export default function RoomDetail() {
               onClick={() => navigate(-1)}
             >
               <ChevronLeft className="w-5 h-5" />
-              <span className="font-bold">Back</span>
+              <span className="font-bold">{t("roomdetails.back")}</span>
             </button>
           </div>
 
@@ -233,13 +235,13 @@ export default function RoomDetail() {
                 className="group bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 hover:shadow-xl flex items-center justify-center gap-3"
               >
                 <CreditCard className="w-5 h-5" />
-                Book This Room Now
+                {t("roomdetails.buttons.book")}
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
               </button>
 
               <button className="border-2 border-amber-500 text-amber-600 hover:bg-amber-50 font-semibold py-4 px-6 rounded-xl transition-all duration-300 flex items-center justify-center gap-2">
                 <Calendar className="w-5 h-5" />
-                Check Availability
+                {t("roomdetails.buttons.check")}
               </button>
             </div>
           </div>
@@ -405,7 +407,7 @@ export default function RoomDetail() {
             <div className="bg-gradient-to-r from-amber-50 to-orange-50 px-8 py-6 border-b border-gray-200">
               <h3 className="text-2xl font-bold text-gray-900 flex items-center gap-3">
                 <Calendar className="w-6 h-6 text-amber-600" />
-                Check In & Check Out Times
+                {t("roomdetails.checkin.heading")}
               </h3>
             </div>
 
@@ -431,10 +433,10 @@ export default function RoomDetail() {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-gray-900 group-hover:text-green-800 transition-colors duration-300">
-                        Check-In Time
+                        {t("roomdetails.checkin.checkin")}
                       </h4>
                       <p className="text-sm text-gray-600">
-                        Welcome to your stay
+                        {t("roomdetails.checkin.checkindes")}
                       </p>
                     </div>
                   </div>
@@ -459,8 +461,7 @@ export default function RoomDetail() {
                   </div>
 
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Early check-in may be available upon request and subject to
-                    availability.
+                    {t("roomdetails.checkin.checkindes2")}
                   </p>
                 </div>
 
@@ -484,10 +485,10 @@ export default function RoomDetail() {
                     </div>
                     <div>
                       <h4 className="text-lg font-bold text-gray-900 group-hover:text-red-800 transition-colors duration-300">
-                        Check-Out Time
+                        {t("roomdetails.checkin.checkout")}
                       </h4>
                       <p className="text-sm text-gray-600">
-                        Safe travels ahead
+                        {t("roomdetails.checkin.checkoutdes")}
                       </p>
                     </div>
                   </div>
@@ -512,8 +513,7 @@ export default function RoomDetail() {
                   </div>
 
                   <p className="text-sm text-gray-600 leading-relaxed">
-                    Late check-out may be available for an additional fee,
-                    subject to availability.
+                    {t("roomdetails.checkin.checkoutdes2")}
                   </p>
                 </div>
               </div>
@@ -536,18 +536,12 @@ export default function RoomDetail() {
                   </div>
                   <div>
                     <h5 className="font-semibold text-gray-900 mb-2">
-                      Important Information
+                      {t("roomdetails.info.heading")}
                     </h5>
                     <ul className="text-sm text-gray-600 space-y-1">
-                      <li>• Valid photo ID required at check-in</li>
-                      <li>
-                        • Please contact reception for early check-in or late
-                        check-out requests
-                      </li>
-                      <li>
-                        • Luggage storage available before check-in and after
-                        check-out
-                      </li>
+                      <li>• {t("roomdetails.info.points.1")}</li>
+                      <li>• {t("roomdetails.info.points.2")}</li>
+                      <li>• {t("roomdetails.info.points.3")}</li>
                     </ul>
                   </div>
                 </div>
@@ -558,18 +552,17 @@ export default function RoomDetail() {
           {/* Call to Action Section */}
           <div className="bg-gradient-to-r from-amber-500 to-amber-600 rounded-2xl p-8 text-white text-center">
             <h3 className="text-2xl font-bold mb-4">
-              Ready to Book Your Stay?
+              {t("roomdetails.cta.heading")}
             </h3>
             <p className="text-amber-100 mb-6 max-w-2xl mx-auto">
-              Don't miss out on this amazing room. Book now and create
-              unforgettable memories.
+              {t("roomdetails.cta.sub")}
             </p>
             <button
               onClick={handleBookRoom}
               className="bg-white text-amber-600 hover:bg-gray-100 font-bold py-4 px-8 rounded-xl transition-all duration-300 transform hover:scale-105 inline-flex items-center gap-3"
             >
               <CreditCard className="w-5 h-5" />
-              Book This Room Now
+              {t("roomdetails.buttons.book")}
               <ArrowRight className="w-5 h-5" />
             </button>
           </div>

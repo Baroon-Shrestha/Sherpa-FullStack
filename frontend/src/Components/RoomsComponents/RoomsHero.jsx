@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const heroImage = "/singlesitter.jpg";
 
 export default function RoomsHero() {
+  const { t } = useTranslation();
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
@@ -13,14 +15,12 @@ export default function RoomsHero() {
         y: (e.clientY / window.innerHeight - 0.5) * 20,
       });
     };
-
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
   }, []);
 
   return (
     <div className="relative w-screen h-screen overflow-hidden">
-      {/* Background Image with Parallax */}
       <motion.img
         src={heroImage}
         alt="Room Hero Background"
@@ -33,11 +33,9 @@ export default function RoomsHero() {
         draggable={false}
       />
 
-      {/* Gradient overlays for better text readability */}
       <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-transparent z-10" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent z-10" />
 
-      {/* Content */}
       <div className="relative z-20 flex flex-col justify-end h-full max-w-7xl mx-auto px-6 md:px-12 lg:px-20 pb-16 md:pb-20 text-white">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
@@ -45,7 +43,7 @@ export default function RoomsHero() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="space-y-8 max-w-4xl"
         >
-          {/* 24/7 Room Service Badge */}
+          {/* Badge */}
           <motion.div
             initial={{ opacity: 0, y: 30, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -69,15 +67,15 @@ export default function RoomsHero() {
             </div>
             <div className="flex flex-col">
               <span className="text-lg md:text-xl font-semibold tracking-wide">
-                24/7 Room Service
+                {t("roomsHero.badgeTitle")}
               </span>
               <span className="text-sm md:text-base text-white/70 font-light">
-                Always here for you
+                {t("roomsHero.badgeSubtitle")}
               </span>
             </div>
           </motion.div>
 
-          {/* Main Hero Text */}
+          {/* Main Text */}
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
@@ -90,7 +88,7 @@ export default function RoomsHero() {
                 transition={{ delay: 0.8, duration: 0.6 }}
                 className="block"
               >
-                Discover rooms
+                {t("roomsHero.headingLine1")}
               </motion.span>
               <motion.span
                 initial={{ opacity: 0, y: 30 }}
@@ -98,7 +96,7 @@ export default function RoomsHero() {
                 transition={{ delay: 1, duration: 0.6 }}
                 className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-white/90 to-white/80"
               >
-                tailored to your lifestyle
+                {t("roomsHero.headingLine2")}
               </motion.span>
             </h1>
             <motion.p
@@ -107,40 +105,8 @@ export default function RoomsHero() {
               transition={{ delay: 1.4, duration: 0.6 }}
               className="text-xl md:text-2xl font-extralight text-white/80 max-w-3xl leading-relaxed"
             >
-              Comfort, style, and functionality—all in one place.
+              {t("roomsHero.paragraph")}
             </motion.p>
-          </motion.div>
-        </motion.div>
-
-        {/* Scroll Down Indicator */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 2, duration: 0.8 }}
-          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-white/60"
-          aria-hidden="true"
-        >
-          <span className="text-xs uppercase tracking-widest mb-2 font-light">
-            Scroll Down To Explore
-          </span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
-          >
-            <svg
-              className="w-4 h-4"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={1.5}
-                d="M19 14l-7 7m0 0l-7-7m7 7V3"
-              />
-            </svg>
           </motion.div>
         </motion.div>
       </div>

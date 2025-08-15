@@ -11,28 +11,30 @@ import RoomDetails from "./Components/RoomsComponents/RoomDetails";
 import ScrollToTop from "./Components/HelperComponents/ScrollToTop";
 import Layout from "./Components/HelperComponents/Layout";
 import BookNowPage from "./Pages/BookNowPage";
-import RoomBooking from "./Components/RoomsComponents/RoomBooking";
+import BookingForm from "./Components/RoomsComponents/RoomBooking";
+import LanguageSwitcher from "./Components/HelperComponents/LanguageSwticher";
 
 function App() {
   return (
-    <Layout>
-      <ScrollToTop />
-      <Routes>
-        {/* English routes */}
-        <Route path="/" element={<HomePage />} />
-        <Route path="/about" element={<AboutPage />} />
-        <Route path="/services" element={<ServicesPage />} />
-        <Route path="/rooms" element={<RoomsPage />} />
-        <Route path="/book-now" element={<BookNowPage />} />
-        <Route path="/room/:id" element={<RoomDetails />} />
-        <Route path="/contact" element={<ContactPage />} />
-        <Route path="/gallery" element={<FullGallery />} />
-        <Route path="/book/:id" element={<RoomBooking />} />
+    <div>
+      <LanguageSwitcher />
+      <Layout>
+        <ScrollToTop />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/about" element={<AboutPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/rooms" element={<RoomsPage />} />
+          <Route path="/book-now" element={<BookNowPage />} />
+          <Route path="/room/:id" element={<RoomDetails />} />
+          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/gallery" element={<FullGallery />} />
+          <Route path="/book/:id" element={<BookingForm />} />
 
-        {/* Redirect unknown routes to English home */}
-        <Route path="*" element={<Navigate to="/" replace />} />
-      </Routes>
-    </Layout>
+          <Route path="*" element={<Navigate to="/" replace />} />
+        </Routes>
+      </Layout>
+    </div>
   );
 }
 

@@ -1,5 +1,6 @@
 import { Heart, Mail, MapPin, Phone } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 // Simple toast notification component
 const Toast = ({ message, show, onClose }) => {
@@ -25,6 +26,8 @@ const Toast = ({ message, show, onClose }) => {
 };
 
 export default function GetInTouch() {
+  const { t } = useTranslation();
+
   const [toastVisible, setToastVisible] = React.useState(false);
   const [toastMessage, setToastMessage] = React.useState("");
 
@@ -36,7 +39,7 @@ export default function GetInTouch() {
   const handlePhoneClick = async () => {
     try {
       await navigator.clipboard.writeText("+977-9851068219");
-      showToast("Phone number copied to clipboard!");
+      showToast(t("getInTouch.phoneCopied"));
     } catch (err) {
       // Fallback for older browsers
       const textArea = document.createElement("textarea");
@@ -45,7 +48,7 @@ export default function GetInTouch() {
       textArea.select();
       document.execCommand("copy");
       document.body.removeChild(textArea);
-      showToast("Phone number copied to clipboard!");
+      showToast(t("getInTouch.phoneCopied"));
     }
   };
 
@@ -61,25 +64,25 @@ export default function GetInTouch() {
   const contactInfo = [
     {
       icon: Phone,
-      title: "Call or WhatsApp",
+      title: t("getInTouch.callWhatsApp"),
       detail: "+977-9851068219",
-      description: "Direct message us on WhatsApp anytime",
+      description: t("getInTouch.whatsappDescription"),
       gradient: "from-emerald-400 to-teal-500",
       onClick: handlePhoneClick,
     },
     {
       icon: Mail,
-      title: "Email Us",
+      title: t("getInTouch.emailUs"),
       detail: "mingmasaino@gmail.com",
-      description: "We usually respond within 24 hours",
+      description: t("getInTouch.emailResponseTime"),
       gradient: "from-violet-400 to-purple-500",
       onClick: handleEmailClick,
     },
     {
       icon: MapPin,
-      title: "Visit Us",
+      title: t("getInTouch.visitUs"),
       detail: "Thamel, Kathmandu, Nepal",
-      description: "Heart of Kathmandu's tourist district",
+      description: t("getInTouch.visitDescription"),
       gradient: "from-orange-400 to-red-500",
       onClick: handleMapClick,
     },
@@ -97,14 +100,13 @@ export default function GetInTouch() {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
-              Get In{" "}
+              {t("getInTouch.getIn")}{" "}
               <span className="bg-gradient-to-r from-amber-600 to-amber-800 bg-clip-text text-transparent">
-                Touch
+                {t("getInTouch.touch")}
               </span>
             </h2>
             <p className="text-lg text-slate-600 max-w-2xl mx-auto">
-              Ready to experience authentic Sherpa hospitality? Reach out to us
-              for bookings, questions, or suggestions.
+              {t("getInTouch.readyDescription")}
             </p>
           </div>
 

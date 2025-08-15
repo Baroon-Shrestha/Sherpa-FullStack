@@ -1,7 +1,10 @@
 import { MessageCircle } from "lucide-react";
 import React from "react";
+import { useTranslation } from "react-i18next";
 
 export default function ContactHero() {
+  const { t } = useTranslation();
+
   return (
     <section
       className="relative w-screen h-screen bg-cover bg-center flex items-center justify-center"
@@ -24,10 +27,10 @@ export default function ContactHero() {
           </div>
         </div>
         <h1 className="text-4xl md:text-6xl font-bold drop-shadow-2xl mb-4 bg-gradient-to-r from-white to-orange-200 bg-clip-text text-transparent">
-          Contact Us
+          {t("contactHero.title")}
         </h1>
         <p className="mt-4 text-xl text-gray-200 drop-shadow-lg">
-          We'd love to hear from you
+          {t("contactHero.subtitle")}
         </p>
       </div>
     </section>

@@ -1,40 +1,22 @@
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { ArrowRight, Play, X } from "lucide-react";
 import { motion } from "framer-motion";
 
 export default function HomeIntro() {
+  const { t, i18n } = useTranslation();
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const heroSlides = [
-    {
-      image:
-        "intro.jpeg",
-      title: "Luxury Redefined",
-      subtitle: "Premium Comfort",
-    },
-    {
-      image:
-        "One.jpeg",
-      title: "Nepalese Heritage",
-      subtitle: "Modern Elegance",
-    },
-    {
-      image:
-        "Diamond Sea Hotel.jpeg",
-      title: "Unforgettable Experience",
-      subtitle: "Heart of Thamel",
-    },
-  ];
+  // Get slides from translations
+  const heroSlides = t("heroSlides", { returnObjects: true });
 
   useEffect(() => {
     if (!isPlaying) return;
-
     const timer = setInterval(() => {
       setCurrentSlide((prev) => (prev + 1) % heroSlides.length);
     }, 6000);
-
     return () => clearInterval(timer);
   }, [isPlaying, heroSlides.length]);
 
@@ -48,8 +30,11 @@ export default function HomeIntro() {
     setIsPlaying(true);
   };
 
+  // RTL for Arabic
+  const isRTL = i18n.language === "ar";
+
   return (
-    <div className="relative">
+    <div dir={isRTL ? "rtl" : "ltr"} className="relative">
       <section className="h-[90vh] flex relative overflow-hidden">
         {/* Background Image Slideshow */}
         <div className="absolute inset-0">
@@ -108,8 +93,7 @@ export default function HomeIntro() {
               className="space-y-6"
             >
               <h1 className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-black text-white leading-none tracking-tight">
-                Hotel Sherpa Soul
-                <span className="text-2xl sm:text-3xl lg:text-4xl xl:text-5xl block mt-2 text-white/90 font-light tracking-wider"></span>
+                {t("hotelName")}
               </h1>
             </motion.div>
 
@@ -120,9 +104,7 @@ export default function HomeIntro() {
               viewport={{ once: true }}
               className="text-white/80 text-lg leading-relaxed max-w-2xl font-light"
             >
-              Experience unparalleled hospitality in the heart of Kathmandu. Our
-              boutique hotel seamlessly blends traditional Nepalese charm with
-              contemporary luxury, creating memories that last a lifetime.
+              {t("introsub")}
             </motion.p>
 
             <motion.div
@@ -130,19 +112,21 @@ export default function HomeIntro() {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.6 }}
               viewport={{ once: true }}
-              className="flex flex-col sm:flex-row justify-start sm:justify-end gap-4 pt-4"
+              className={`flex flex-col sm:flex-row justify-start sm:justify-end gap-4 pt-4 ${
+                isRTL ? "flex-row-reverse" : ""
+              }`}
             >
-              <button className="group bg-white text-gray-800 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2">
-                <span>Book Your Stay</span>
+              {/* <button className="group bg-white text-gray-800 px-8 py-4 rounded-full font-semibold text-lg hover:bg-gray-100 transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl flex items-center justify-center space-x-2">
+                <span>{t("bookButton")}</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
-              </button>
+              </button> */}
 
               <button
                 onClick={openModal}
                 className="group bg-transparent border-2 border-white text-white px-8 py-4 rounded-full font-semibold text-lg hover:bg-white hover:text-gray-800 transition-all duration-300 flex items-center justify-center space-x-2"
               >
                 <Play className="w-5 h-5" />
-                <span>Virtual Tour</span>
+                <span>{t("virtualTourButton")}</span>
               </button>
             </motion.div>
           </motion.div>
@@ -162,8 +146,8 @@ export default function HomeIntro() {
 
             <div className="relative aspect-video">
               <iframe
-                src="https://www.youtube.com/embed/8IoDrKmbeBs?si=fQZBO4KHYiGJvmt4"
-                title="Hotel Sherpa Soul Virtual Tour"
+                src={t("videoUrl")}
+                title={t("modalTitle")}
                 className="w-full h-full"
                 frameBorder="0"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
@@ -173,12 +157,9 @@ export default function HomeIntro() {
 
             <div className="p-6 bg-gradient-to-r from-amber-900/50 to-amber-800/50">
               <h3 className="text-xl font-bold text-white mb-2">
-                Virtual Tour - Hotel Sherpa Soul
+                {t("modalTitle")}
               </h3>
-              <p className="text-white/80">
-                Take a virtual journey through our luxurious accommodations and
-                discover the perfect blend of tradition and modernity.
-              </p>
+              <p className="text-white/80">{t("modalDescription")}</p>
             </div>
           </div>
         </div>

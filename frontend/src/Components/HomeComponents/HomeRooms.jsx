@@ -2,12 +2,15 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowRight, ChevronLeft, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const RoomCarousel = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [hoveredIndex, setHoveredIndex] = useState(null);
   const [isMobile, setIsMobile] = useState(false);
   const [isTransitioning, setIsTransitioning] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
@@ -19,39 +22,27 @@ const RoomCarousel = () => {
   const rooms = [
     {
       id: 1,
-      name: "Standard Room",
-      guests: 2,
-      size: "35 Feets Size",
-      price: 150,
-      image:
-        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&h=500&fit=crop&crop=center",
+      name: t("room.rooms.1.name"),
+      guests: 1,
+      size: "35 " + t("room.size"),
+      price: 2000,
+      image: "/single.jpeg",
     },
     {
       id: 2,
-      name: "Deluxe Room",
+      name: t("room.rooms.2.name"),
       guests: 2,
-      size: "42 Feets Size",
-      price: 200,
-      image:
-        "https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=400&h=500&fit=crop&crop=center",
+      size: "42 " + t("room.size"),
+      price: 3000,
+      image: "/double.jpg",
     },
     {
       id: 3,
-      name: "Superior Room",
-      guests: 2,
-      size: "50 Feets Size",
-      price: 350,
-      image:
-        "https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?w=400&h=500&fit=crop&crop=center",
-    },
-    {
-      id: 4,
-      name: "Suite",
-      guests: 4,
-      size: "55 Feets Size",
-      price: 400,
-      image:
-        "https://images.unsplash.com/photo-1590490360182-c33d57733427?w=400&h=500&fit=crop&crop=center",
+      name: t("room.rooms.3.name"),
+      guests: 3,
+      size: "50 " + t("room.size"),
+      price: 3500,
+      image: "/triple.jpg",
     },
   ];
 
@@ -86,10 +77,10 @@ const RoomCarousel = () => {
     <div className="min-h-screen bg-white py-8 md:py-16">
       <div className="text-center mb-12">
         <p className="text-xs text-amber-600 uppercase tracking-[0.2em] mb-2">
-          Rooms & Suites
+          {t("room.title1")}
         </p>
         <h2 className="text-3xl md:text-5xl font-light text-gray-900">
-          Our Rooms
+          {t("room.title2")}
         </h2>
       </div>
 
@@ -155,7 +146,7 @@ const RoomCarousel = () => {
                       {room.name}
                     </h3>
                     <p className="text-sm">
-                      {room.guests} Guests • {room.size}
+                      {room.guests} {t("room.guest")} • {room.size}
                     </p>
                   </div>
 
@@ -185,15 +176,15 @@ const RoomCarousel = () => {
                             from
                           </p>
                           <div className="text-6xl font-light mb-8 tracking-wide">
-                            ${room.price}
+                            Rs. {room.price}
                           </div>
-                          <motion.button
-                            className="px-8 py-3 border border-white/50 text-sm tracking-[0.15em] uppercase hover:bg-white hover:text-black transition-all duration-300"
+                          {/* <motion.button
+                            className="px-8 py-3 border capitalize border-white/50 text-sm tracking-[0.15em] uppercase hover:bg-white hover:text-black transition-all duration-300"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                           >
-                            VIEW DETAILS
-                          </motion.button>
+                            {t("room.details")}
+                          </motion.button> */}
                         </motion.div>
                       </motion.div>
                     )}
@@ -220,7 +211,7 @@ const RoomCarousel = () => {
       <div className="flex items-center justify-center mt-8 md:mt-6 px-4">
         <Link to="/rooms">
           <button className="flex items-center gap-3 justify-between hover:text-[#AB8865] transition-colors duration-300">
-            <span className="text-lg md:text-xl">View All rooms</span>
+            <span className="text-lg md:text-xl"> {t("room.details")}</span>
             <ArrowRight className="w-5 h-5 md:w-6 md:h-6" />
           </button>
         </Link>
